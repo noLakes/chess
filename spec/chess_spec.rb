@@ -113,6 +113,3 @@ describe Game do
 
 end
 
-describe Pieces do
-
-end
