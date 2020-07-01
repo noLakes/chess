@@ -59,4 +59,17 @@ describe Game do
 
   end
 
+  describe "#get_pos" do
+
+    it "returns the value of a key in @board" do
+      subject.board['a3'] = 22
+      expect(subject.get_pos('a3')).to eql(22)
+    end
+
+    it "returns nil if the position doesnt exist" do
+      test = subject.get_pos('z3')
+      expect(test).to be_nil
+    end
+  end
+
 end

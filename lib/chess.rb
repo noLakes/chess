@@ -27,4 +27,9 @@ class Game
     @board[pos] = val
   end
 
+  def get_pos(pos)
+    return nil unless @board.include?(pos)
+    @board[pos]
+  end
+
 end
