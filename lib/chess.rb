@@ -8,6 +8,7 @@ class Game
     @turn = @players['White']
   end
 
+  VACANT = "[ ]"
 
   def build_board
     board = {}
@@ -16,7 +17,7 @@ class Game
 
     files.each do |file|
       ranks.each do |rank|
-        board["#{file}#{rank}"] = nil
+        board["#{file}#{rank}"] = VACANT
       end
     end
     board
@@ -34,6 +35,22 @@ class Game
   def set_pos(pos, val)
     return nil unless check_pos(pos)
     @board[pos] = val
+  end
+
+  def txt
+    text = []
+    i = 8
+    until i <= 0 do
+      text << " #{i}"
+      ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].each do |char|
+        cell = get_pos("#{char}#{i}")
+        cell == VACANT ? text << cell : text << cell #change to cell.txt when Piece class is finished
+      end
+      text << "\n"
+      i -= 1
+    end
+    text << "   a  b  c  d  e  f  g  h\n"
+    text.join('')
   end
 
 end

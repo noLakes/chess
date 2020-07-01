@@ -34,8 +34,8 @@ describe Game do
       expect(test_board.length).to eql(64)
     end
 
-    it "starts with nil values" do
-      expect(test_board.values).to all(be_nil)
+    it "starts with '[ ]' values" do
+      expect(test_board.values).to all(match('[ ]'))
     end
 
     it "has keys named according to algebraic chess notation" do
