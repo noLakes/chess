@@ -72,4 +72,20 @@ describe Game do
     end
   end
 
+  describe "#check_pos" do
+
+    it "returns true if a position exists on the board" do
+      expect(subject.check_pos('e8')).to be_truthy
+      expect(subject.check_pos('c2')).to be_truthy
+      expect(subject.check_pos('g4')).to be_truthy
+    end
+
+    it "returns false if a position does not exist on the board" do
+      expect(subject.check_pos('a0')).to be_falsey
+      expect(subject.check_pos('q10')).to be_falsey
+      expect(subject.check_pos('m2')).to be_falsey
+    end
+    
+  end
+
 end
