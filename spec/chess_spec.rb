@@ -114,5 +114,31 @@ describe Game do
 end
 
 describe Rook do
+  subject(:rook) { Rook.new }
+  let(:game) { Game.new }
 
+  describe "#initialize" do
+
+    it "creates a Rook obj" do
+      expect(subject).to be_kind_of(Rook)
+    end
+
+    it "can be assgined a color" do
+      white = Rook.new(game.players['White'])
+      black = Rook.new(game.players['Black'])
+      expect(white.color).to eql('W')
+      expect(black.color).to eql('B')
+    end
+
+    it "has an instance varable for text representation" do
+      white = Rook.new(game.players['White'])
+      black = Rook.new(game.players['Black'])
+      expect(white.txt).to eql("\u2656")
+      expect(black.txt).to eql("\u265C")
+    end
+
+    it "has an instance variable for position (default is nil)" do
+      expect(subject.pos).to be_nil
+    end
+  end
 end
