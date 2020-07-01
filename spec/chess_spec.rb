@@ -113,3 +113,6 @@ describe Game do
 
 end
 
+describe Rook do
+
+end

@@ -1,3 +1,4 @@
+require 'lib/pieces.rb'
 
 class Game
   attr_reader :board, :turn, :players
