@@ -85,7 +85,29 @@ describe Game do
       expect(subject.check_pos('q10')).to be_falsey
       expect(subject.check_pos('m2')).to be_falsey
     end
-    
+
+  end
+
+  describe "#txt" do
+
+    it "returns a string" do
+      expect(subject.txt).to be_kind_of(String)
+    end
+
+    it "represents positions with a '[ ]'" do
+      expect(subject.txt).to include("[ ]")
+    end
+
+    it "has rank and file guides along x/y axis" do
+      expect(subject.txt).to include("1")
+      expect(subject.txt).to include("2")
+      expect(subject.txt).to include("8")
+      expect(subject.txt).to include("7")
+      expect(subject.txt).to include("a")
+      expect(subject.txt).to include("b")
+      expect(subject.txt).to include("g")
+      expect(subject.txt).to include("f")
+    end
   end
 
 end
