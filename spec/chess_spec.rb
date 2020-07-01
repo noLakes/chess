@@ -44,4 +44,19 @@ describe Game do
       expect(test_board.has_key?('h1')).to be_truthy
     end
   end
+
+  describe "#set_pos" do
+
+    it "changes a hash value in @board" do
+      subject.set_pos('c7', 1)
+      expect(subject.board['c7']).to eql(1)
+    end
+
+    it "returns nil if the position doesnt exist" do
+      test = subject.set_pos('j9', 1)
+      expect(test).to be_nil
+    end
+
+  end
+
 end

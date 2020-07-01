@@ -22,4 +22,9 @@ class Game
     board
   end
 
+  def set_pos(pos, val)
+    return nil unless @board.include?(pos)
+    @board[pos] = val
+  end
+
 end
