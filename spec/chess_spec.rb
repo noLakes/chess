@@ -1,4 +1,5 @@
 require './lib/chess.rb'
+require './lib/pieces.rb'
 
 describe Game do
   subject(:game) { Game.new }
@@ -109,5 +110,9 @@ describe Game do
       expect(subject.txt).to include("f")
     end
   end
+
+end
+
+describe Pieces do
 
 end

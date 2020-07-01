@@ -44,7 +44,7 @@ class Game
       text << " #{i}"
       ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].each do |char|
         cell = get_pos("#{char}#{i}")
-        cell == VACANT ? text << cell : text << cell #change to cell.txt when Piece class is finished
+        cell == VACANT ? text << cell : text << cell.txt
       end
       text << "\n"
       i -= 1
