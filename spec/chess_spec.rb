@@ -1,16 +1,24 @@
 require './lib/chess.rb'
 
-describe Board do
-  subject(:board) { Board.new }
+describe Game do
+  subject(:game) { Game.new }
 
   describe "#initialize" do
 
-    it "creates a board obj" do
+    it "creates a game obj" do
 
     end
 
     it "assigns a value to @board" do
 
+    end
+
+    it "assigns values to @players" do
+
+    end
+
+    it "assigns a value to turn" do
+      
     end
 
   end
