@@ -114,8 +114,8 @@ describe Cell do
       expect(subject).to be_kind_of(Cell)
     end
 
-    it "has instance variable for value (default = nil)" do
-      expect(subject.val).to be_nil
+    it "has instance variable for piece (default = nil)" do
+      expect(subject.piece).to be_nil
     end
 
     it "has instance variable for adjacent (default = [])" do

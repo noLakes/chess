@@ -2,10 +2,10 @@ require 'board.rb'
 require 'pieces.rb'
 
 class Cell
-  attr_reader :val, :adjacent
+  attr_reader :piece, :adjacent
 
-  def initialize(val = nil, adj = [])
-    @val = val
+  def initialize(piece = nil, adj = [])
+    @piece = piece
     @adjacent = adj
   end
 end
