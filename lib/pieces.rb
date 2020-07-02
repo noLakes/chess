@@ -1,4 +1,4 @@
-require 'chess.rb'
+require 'board.rb'
 
 class Rook
   attr_reader :color, :pos, :txt

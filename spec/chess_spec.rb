@@ -1,25 +1,17 @@
-require './lib/chess.rb'
+require './lib/board.rb'
 require './lib/pieces.rb'
 
-describe Game do
-  subject(:game) { Game.new }
+describe Board do
+  subject(:board) { Board.new }
 
   describe "#initialize" do
 
     it "creates a game obj" do
-      expect(subject).to be_kind_of(Game)
+      expect(subject).to be_kind_of(Board)
     end
 
-    it "assigns a value to @board" do
-      expect(subject.board).not_to be_nil
-    end
-
-    it "assigns values to @players" do
-      expect(subject.players).not_to be_nil
-    end
-
-    it "assigns a value to turn" do
-      expect(subject.turn).not_to be_nil
+    it "assigns a value to tiles" do
+      expect(subject.tiles).not_to be_nil
     end
 
   end
@@ -48,9 +40,9 @@ describe Game do
 
   describe "#set_pos" do
 
-    it "changes a hash value in @board" do
+    it "changes a hash value in @tiles" do
       subject.set_pos('c7', 1)
-      expect(subject.board['c7']).to eql(1)
+      expect(subject.tiles['c7']).to eql(1)
     end
 
     it "returns nil if the position doesnt exist" do
@@ -62,8 +54,8 @@ describe Game do
 
   describe "#get_pos" do
 
-    it "returns the value of a key in @board" do
-      subject.board['a3'] = 22
+    it "returns the value of a key in @tiles" do
+      subject.tiles['a3'] = 22
       expect(subject.get_pos('a3')).to eql(22)
     end
 
@@ -115,7 +107,7 @@ end
 
 describe Rook do
   subject(:rook) { Rook.new }
-  let(:game) { Game.new }
+  let(:board) { Board.new }
 
   describe "#initialize" do
 
@@ -124,15 +116,15 @@ describe Rook do
     end
 
     it "can be assgined a color" do
-      white = Rook.new(game.players['White'])
-      black = Rook.new(game.players['Black'])
+      white = Rook.new('W')
+      black = Rook.new('B')
       expect(white.color).to eql('W')
       expect(black.color).to eql('B')
     end
 
     it "has an instance varable for text representation" do
-      white = Rook.new(game.players['White'])
-      black = Rook.new(game.players['Black'])
+      white = Rook.new('W')
+      black = Rook.new('B')
       expect(white.txt).to eql("\u2656")
       expect(black.txt).to eql("\u265C")
     end

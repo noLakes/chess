@@ -1,41 +1,39 @@
 require 'pieces.rb'
 
-class Game
-  attr_reader :board, :turn, :players
+class Board
+  attr_reader :tiles
 
   def initialize
-    @board = build_board
-    @players = {'White' => 'W', 'Black' => 'B'}
-    @turn = @players['White']
+    @tiles = build_board
   end
 
   VACANT = "[ ]"
 
   def build_board
-    board = {}
+    tiles = {}
     files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     ranks = [1, 2, 3, 4, 5, 6, 7, 8]
 
     files.each do |file|
       ranks.each do |rank|
-        board["#{file}#{rank}"] = VACANT
+        tiles["#{file}#{rank}"] = VACANT
       end
     end
-    board
+    tiles
   end
 
   def check_pos(pos)
-    @board.include?(pos)
+    @tiles.include?(pos)
   end
 
   def get_pos(pos)
     return nil unless check_pos(pos)
-    @board[pos]
+    @tiles[pos]
   end
 
   def set_pos(pos, val)
     return nil unless check_pos(pos)
-    @board[pos] = val
+    @tiles[pos] = val
   end
 
   def txt
