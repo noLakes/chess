@@ -105,6 +105,27 @@ describe Board do
 
 end
 
+describe Cell do
+
+  describe "#initialize" do
+    subject(:cell) { Cell.new }
+
+    it "creates a cell obj" do
+      expect(subject).to be_kind_of(Cell)
+    end
+
+    it "has instance variable for value (default = nil)" do
+      expect(subject.val).to be_nil
+    end
+
+    it "has instance variable for adjacent (default = [])" do
+      expect(subject.adjacent).to be_kind_of(Array)
+    end
+
+  end
+
+end
+
 describe Rook do
   subject(:rook) { Rook.new }
   let(:board) { Board.new }

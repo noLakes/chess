@@ -1,4 +1,5 @@
 require 'pieces.rb'
+require 'cell.rb'
 
 class Board
   attr_reader :tiles
