@@ -108,10 +108,14 @@ end
 describe Cell do
 
   describe "#initialize" do
-    subject(:cell) { Cell.new }
+    subject(:cell) { Cell.new(['a', 2]) }
 
     it "creates a cell obj" do
       expect(subject).to be_kind_of(Cell)
+    end
+
+    it "has instance variable for position (no default!)" do
+      expect(subject.pos).to eql(['a', 2])
     end
 
     it "has instance variable for piece (default = nil)" do
