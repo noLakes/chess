@@ -41,9 +41,8 @@ describe Board do
   describe "#assign_adjacents" do
     let(:cells) { subject.cells }
 
-    it "adds references to adjacent Cell objs" do
+    it "adds references to adjacent Cell positions" do
       test = cells[['b', 1]].adjacent
-      test.map! { |cell| cell.pos } 
       expect(test).to include(['a', 1])
       expect(test).to include(['a', 2])
       expect(test).to include(['b', 2])
@@ -146,10 +145,10 @@ describe Cell do
   describe "#add_adjacents" do
     let(:cell) { Cell.new(['a', 2]) }
 
-    it "adds references to other Cells into the adjacent array" do
+    it "adds references to other Cell positions into the adjacent array" do
       test_cell = Cell.new(['b', 2])
       cell.add_adjacents(test_cell)
-      expect(cell.adjacent).to include(test_cell)
+      expect(cell.adjacent).to include(test_cell.pos)
     end
   end
 

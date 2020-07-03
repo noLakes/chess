@@ -1,5 +1,5 @@
-require 'pieces.rb'
-require 'cell.rb'
+require_relative 'cell'
+require_relative 'pieces'
 
 VACANT = "[ ]"
 INCREMENTS = [[-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0]]

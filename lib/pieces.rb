@@ -1,5 +1,3 @@
-require 'board.rb'
-require 'cell.rb'
 
 class Rook
   attr_reader :color, :pos, :txt
