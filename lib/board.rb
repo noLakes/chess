@@ -23,6 +23,10 @@ class Board
     tiles
   end
 
+  def add_adjacents(board)
+    
+  end
+
   def check_pos(pos)
     @tiles.include?(pos)
   end

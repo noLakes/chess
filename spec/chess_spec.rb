@@ -38,6 +38,21 @@ describe Board do
     end
   end
 
+  describe "#add_adjacents" do
+    let(:tiles) { subject.tiles }
+
+    it "adds references to adjacent Cell objs" do
+      test = tiles[['b', 1]].adjacent
+      test.map! { |cell| cell.pos } 
+      expect(test).to include(['a', 1])
+      expect(test).to include(['a', 2])
+      expect(test).to include(['b', 2])
+      expect(test).to include(['c', 2])
+      expect(test).to include(['c', 1])
+    end 
+
+  end
+
   describe "#set_pos" do
 
     it "changes a hash value in @tiles" do
