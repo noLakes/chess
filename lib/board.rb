@@ -24,7 +24,6 @@ class Board
   end
 
   def add_adjacents(board)
-    
   end
 
   def check_pos(pos)

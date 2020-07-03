@@ -143,6 +143,16 @@ describe Cell do
 
   end
 
+  describe "#add_adjacents" do
+    let(:cell) { Cell.new(['a', 2]) }
+
+    it "adds references to other Cells into the adjacent array" do
+      test_cell = Cell.new(['b', 2])
+      cell.add_adjacents(test_cell)
+      expect(cell.adjacent).to include(test_cell)
+    end
+  end
+
 end
 
 describe Rook do

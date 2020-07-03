@@ -13,4 +13,12 @@ class Cell
   def txt
     piece.nil? ? '[ ]' : piece.txt
   end
+
+  def add_adjacents(*cells)
+    cells.each do |cell|
+      if cell.pos[0].between?('a', 'g') && cell.pos[1].between?(1, 8)
+        @adjacent << cell
+      end
+    end
+  end
 end
