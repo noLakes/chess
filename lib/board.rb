@@ -2,12 +2,14 @@ require 'pieces.rb'
 require 'cell.rb'
 
 VACANT = "[ ]"
+INCREMENTS = [[-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0]]
 
 class Board
   attr_reader :cells
 
   def initialize
     @cells = build_board
+    assign_adjacents
   end
 
   def build_board
@@ -23,7 +25,15 @@ class Board
     cells
   end
 
-  def assign_adjacents(board)
+  def assign_adjacents(cells = @cells)
+    cells.each_pair do |key, cell|
+      INCREMENTS.each do |inc|
+        x = (key[0].ord + inc[0]).chr
+        y = key[1] + inc[1]
+        adj = get_pos([x, y])
+        cell.add_adjacents(adj) if !adj.nil?
+      end
+    end
   end
 
   def check_pos(pos)
