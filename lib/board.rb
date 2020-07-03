@@ -23,7 +23,7 @@ class Board
     cells
   end
 
-  def add_adjacents(board)
+  def assign_adjacents(board)
   end
 
   def check_pos(pos)

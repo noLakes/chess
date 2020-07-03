@@ -38,7 +38,7 @@ describe Board do
     end
   end
 
-  describe "#map_adjacents" do
+  describe "#assign_adjacents" do
     let(:cells) { subject.cells }
 
     it "adds references to adjacent Cell objs" do
