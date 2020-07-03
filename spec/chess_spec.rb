@@ -10,8 +10,8 @@ describe Board do
       expect(subject).to be_kind_of(Board)
     end
 
-    it "assigns a value to tiles" do
-      expect(subject.tiles).not_to be_nil
+    it "assigns a value to cells" do
+      expect(subject.cells).not_to be_nil
     end
 
   end
@@ -38,11 +38,11 @@ describe Board do
     end
   end
 
-  describe "#add_adjacents" do
-    let(:tiles) { subject.tiles }
+  describe "#map_adjacents" do
+    let(:cells) { subject.cells }
 
     it "adds references to adjacent Cell objs" do
-      test = tiles[['b', 1]].adjacent
+      test = cells[['b', 1]].adjacent
       test.map! { |cell| cell.pos } 
       expect(test).to include(['a', 1])
       expect(test).to include(['a', 2])
@@ -55,9 +55,9 @@ describe Board do
 
   describe "#set_pos" do
 
-    it "changes a hash value in @tiles" do
+    it "changes a hash value in @cells" do
       subject.set_pos(['c', 7], 1)
-      expect(subject.tiles[['c', 7]]).to eql(1)
+      expect(subject.cells[['c', 7]]).to eql(1)
     end
 
     it "returns nil if the position doesnt exist" do
@@ -69,8 +69,8 @@ describe Board do
 
   describe "#get_pos" do
 
-    it "returns the value of a key in @tiles" do
-      subject.tiles[['a', 3]] = 22
+    it "returns the value of a key in @cells" do
+      subject.cells[['a', 3]] = 22
       expect(subject.get_pos(['a', 3])).to eql(22)
     end
 
