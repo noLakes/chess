@@ -9,4 +9,8 @@ class Cell
     @piece = piece
     @adjacent = adj
   end
+
+  def txt
+    piece.nil? ? '[ ]' : piece.txt
+  end
 end

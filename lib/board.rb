@@ -1,14 +1,14 @@
 require 'pieces.rb'
 require 'cell.rb'
 
+VACANT = "[ ]"
+
 class Board
   attr_reader :tiles
 
   def initialize
     @tiles = build_board
   end
-
-  VACANT = "[ ]"
 
   def build_board
     tiles = {}
@@ -17,7 +17,7 @@ class Board
 
     files.each do |file|
       ranks.each do |rank|
-        tiles["#{file}#{rank}"] = VACANT
+        tiles[[file, rank]] = Cell.new([file, rank])
       end
     end
     tiles
@@ -43,8 +43,8 @@ class Board
     until i <= 0 do
       text << " #{i}"
       ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].each do |char|
-        cell = get_pos("#{char}#{i}")
-        cell == VACANT ? text << cell : text << cell.txt
+        cell = get_pos([char, i])
+        text << cell.txt
       end
       text << "\n"
       i -= 1

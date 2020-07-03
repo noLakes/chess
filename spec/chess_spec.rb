@@ -6,7 +6,7 @@ describe Board do
 
   describe "#initialize" do
 
-    it "creates a game obj" do
+    it "creates a board obj" do
       expect(subject).to be_kind_of(Board)
     end
 
@@ -27,26 +27,26 @@ describe Board do
       expect(test_board.length).to eql(64)
     end
 
-    it "starts with '[ ]' values" do
-      expect(test_board.values).to all(match('[ ]'))
+    it "all values are Cell objects" do
+      expect(test_board.values).to all(be_kind_of(Cell))
     end
 
     it "has keys named according to algebraic chess notation" do
-      expect(test_board.has_key?('a5')).to be_truthy
-      expect(test_board.has_key?('g8')).to be_truthy
-      expect(test_board.has_key?('h1')).to be_truthy
+      expect(test_board.has_key?(['a', 5])).to be_truthy
+      expect(test_board.has_key?(['g', 8])).to be_truthy
+      expect(test_board.has_key?(['h', 1])).to be_truthy
     end
   end
 
   describe "#set_pos" do
 
     it "changes a hash value in @tiles" do
-      subject.set_pos('c7', 1)
-      expect(subject.tiles['c7']).to eql(1)
+      subject.set_pos(['c', 7], 1)
+      expect(subject.tiles[['c', 7]]).to eql(1)
     end
 
     it "returns nil if the position doesnt exist" do
-      test = subject.set_pos('j9', 1)
+      test = subject.set_pos(['j', 9], 1)
       expect(test).to be_nil
     end
 
@@ -55,12 +55,12 @@ describe Board do
   describe "#get_pos" do
 
     it "returns the value of a key in @tiles" do
-      subject.tiles['a3'] = 22
-      expect(subject.get_pos('a3')).to eql(22)
+      subject.tiles[['a', 3]] = 22
+      expect(subject.get_pos(['a', 3])).to eql(22)
     end
 
     it "returns nil if the position doesnt exist" do
-      test = subject.get_pos('z3')
+      test = subject.get_pos(['z', 3])
       expect(test).to be_nil
     end
   end
@@ -68,15 +68,15 @@ describe Board do
   describe "#check_pos" do
 
     it "returns true if a position exists on the board" do
-      expect(subject.check_pos('e8')).to be_truthy
-      expect(subject.check_pos('c2')).to be_truthy
-      expect(subject.check_pos('g4')).to be_truthy
+      expect(subject.check_pos(['e', 8])).to be_truthy
+      expect(subject.check_pos(['c', 2])).to be_truthy
+      expect(subject.check_pos(['g', 4])).to be_truthy
     end
 
     it "returns false if a position does not exist on the board" do
-      expect(subject.check_pos('a0')).to be_falsey
-      expect(subject.check_pos('q10')).to be_falsey
-      expect(subject.check_pos('m2')).to be_falsey
+      expect(subject.check_pos(['a', 0])).to be_falsey
+      expect(subject.check_pos(['q', 10])).to be_falsey
+      expect(subject.check_pos(['m', 2])).to be_falsey
     end
 
   end
