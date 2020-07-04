@@ -154,38 +154,38 @@ describe Cell do
 
 end
 
-describe Piece do
-  subject(:piece) { Piece.new }
+describe Rook do
+  subject(:rook) { Rook.new }
   let(:board) { Board.new }
 
   describe "#initialize" do
 
-    it "creates a piece obj" do
-      expect(subject).to be_kind_of(Piece)
+    it "creates a rook obj" do
+      expect(subject).to be_kind_of(Rook)
     end
 
     it "can be assgined a color" do
-      white = Piece.new('W')
-      black = Piece.new('B')
-      expect(white.color).to eql('W')
-      expect(black.color).to eql('B')
+      white = Rook.new('W')
+      black = Rook.new('B')
+      expect(white.color).to eql("W")
+      expect(black.color).to eql("B")
     end
 
     it "has an instance varable for text representation" do
-      white = Piece.new('W')
-      black = Piece.new('B')
-      expect(white.txt).to eql("W")
-      expect(black.txt).to eql("B")
+      white = Rook.new('W')
+      black = Rook.new('B')
+      expect(white.txt).to eql("\u2656")
+      expect(black.txt).to eql("\u265C")
     end
 
     it "has an instance variable for position (default is nil)" do
       expect(subject.pos).to be_nil
     end
 
-    it "has an instance variable for movement increments (default is empty Array)" do
+    it "has an instance variable for movement increments (array length > 0)" do
       expect(subject.increments).to be_kind_of(Array)
-      expect(subject.increments.length).to eql(0)
+      expect(subject.increments.length).not_to eql(0)
     end
-    
+
   end
 end
