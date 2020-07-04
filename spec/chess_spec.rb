@@ -184,7 +184,7 @@ describe Rook do
 
     it "has an instance variable for movement increments (array length > 0)" do
       expect(subject.increments).to be_kind_of(Array)
-      expect(subject.increments.length).not_to eql(0)
+      expect(subject.increments.length).to eql(28)
     end
 
   end
