@@ -154,28 +154,28 @@ describe Cell do
 
 end
 
-xdescribe Rook do
-  subject(:rook) { Rook.new }
+describe Piece do
+  subject(:piece) { Piece.new }
   let(:board) { Board.new }
 
   describe "#initialize" do
 
-    it "creates a Rook obj" do
-      expect(subject).to be_kind_of(Rook)
+    it "creates a piece obj" do
+      expect(subject).to be_kind_of(Piece)
     end
 
     it "can be assgined a color" do
-      white = Rook.new('W')
-      black = Rook.new('B')
+      white = Piece.new('W')
+      black = Piece.new('B')
       expect(white.color).to eql('W')
       expect(black.color).to eql('B')
     end
 
     it "has an instance varable for text representation" do
-      white = Rook.new('W')
-      black = Rook.new('B')
-      expect(white.txt).to eql("\u2656")
-      expect(black.txt).to eql("\u265C")
+      white = Piece.new('W')
+      black = Piece.new('B')
+      expect(white.txt).to eql("W")
+      expect(black.txt).to eql("B")
     end
 
     it "has an instance variable for position (default is nil)" do
