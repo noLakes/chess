@@ -1,5 +1,5 @@
 require_relative 'cell'
-require_relative 'pieces'
+Dir["/pieces/*"].each {|file| require file }
 
 VACANT = "[ ]"
 INCREMENTS = [[-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0]]

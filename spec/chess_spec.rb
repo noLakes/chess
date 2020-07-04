@@ -1,5 +1,5 @@
 require './lib/board.rb'
-require './lib/pieces.rb'
+Dir["./lib/pieces/*"].each {|file| require file }
 
 describe Board do
   subject(:board) { Board.new }
@@ -154,7 +154,7 @@ describe Cell do
 
 end
 
-describe Rook do
+xdescribe Rook do
   subject(:rook) { Rook.new }
   let(:board) { Board.new }
 
