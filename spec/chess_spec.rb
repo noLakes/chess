@@ -334,3 +334,39 @@ describe Queen do
   end
 end
 
+describe Pawn do
+  subject(:pawn) { Pawn.new }
+  let(:board) { Board.new }
+    
+  describe "#initialize" do
+    
+    it "creates a pawn obj" do
+      expect(subject).to be_kind_of(Pawn)
+    end
+    
+    it "can be assgined a color" do
+      white = Pawn.new('W')
+      black = Pawn.new('B')
+      expect(white.color).to eql("W")
+      expect(black.color).to eql("B")
+    end
+    
+    it "has an instance varable for text representation" do
+      white = Pawn.new('W')
+      black = Pawn.new('B')
+      expect(white.txt).to eql("\u2659")
+      expect(black.txt).to eql("\u265F")
+    end
+    
+    it "has an instance variable for position (default is nil)" do
+      expect(subject.pos).to be_nil
+    end
+    
+    it "has an instance variable for movement increments (array length > 0)" do
+      expect(subject.increments).to be_kind_of(Array)
+      expect(subject.increments.length).to eql(4)
+    end
+    
+  end
+end
+
