@@ -12,6 +12,3 @@ class Knight
   end
 
 end
-
-
-
