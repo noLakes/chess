@@ -262,3 +262,39 @@ describe King do
   end
 end
 
+describe Knight do
+  subject(:knight) { Knight.new }
+  let(:board) { Board.new }
+    
+  describe "#initialize" do
+    
+    it "creates a knight obj" do
+      expect(subject).to be_kind_of(Knight)
+    end
+    
+    it "can be assgined a color" do
+      white = Knight.new('W')
+      black = Knight.new('B')
+      expect(white.color).to eql("W")
+      expect(black.color).to eql("B")
+    end
+    
+    it "has an instance varable for text representation" do
+      white = Knight.new('W')
+      black = Knight.new('B')
+      expect(white.txt).to eql("\u2658")
+      expect(black.txt).to eql("\u265E")
+    end
+    
+    it "has an instance variable for position (default is nil)" do
+      expect(subject.pos).to be_nil
+    end
+    
+    it "has an instance variable for movement increments (array length > 0)" do
+      expect(subject.increments).to be_kind_of(Array)
+      expect(subject.increments.length).to eql(8)
+    end
+    
+  end
+end
+
