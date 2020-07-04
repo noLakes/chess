@@ -181,5 +181,11 @@ describe Piece do
     it "has an instance variable for position (default is nil)" do
       expect(subject.pos).to be_nil
     end
+
+    it "has an instance variable for movement increments (default is empty Array)" do
+      expect(subject.increments).to be_kind_of(Array)
+      expect(subject.increments.length).to eql(0)
+    end
+    
   end
 end
