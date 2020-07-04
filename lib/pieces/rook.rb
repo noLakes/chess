@@ -1,3 +1,4 @@
+require_relative 'piece'
 
 class Rook
   attr_reader :color, :pos, :txt
