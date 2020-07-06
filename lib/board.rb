@@ -25,6 +25,40 @@ class Board
     cells
   end
 
+  def setup_board
+    @cells.each_pair do |key, val|
+      if key[1] == 2
+        val.piece = Pawn.new('W', key)
+      elsif key[1] == 7
+        val.piece = Pawn.new('B', key)
+      elsif key[1] == 1
+        if key[0] == 'a' || key[0] == 'h'
+          val.piece = Rook.new('W', key)
+        elsif key[0] == 'b' || key[0] == 'g'
+          val.piece = Knight.new('W', key)
+        elsif key[0] == 'c' || key[0] == 'f'
+          val.piece = Bishop.new('W', key)
+        elsif key[0] == 'd'
+          val.piece = Queen.new('W', key)
+        elsif key[0] == 'e'
+          val.piece = King.new('W', key)
+        end
+      elsif key[1] == 8
+        if key[0] == 'a' || key[0] == 'h'
+          val.piece = Rook.new('B', key)
+        elsif key[0] == 'b' || key[0] == 'g'
+          val.piece = Knight.new('B', key)
+        elsif key[0] == 'c' || key[0] == 'f'
+          val.piece = Bishop.new('B', key)
+        elsif key[0] == 'd'
+          val.piece = Queen.new('B', key)
+        elsif key[0] == 'e'
+          val.piece = King.new('B', key)
+        end
+      end
+    end
+  end
+
   def [](alpha, num)
     @cells[[alpha, num]] || nil
   end
