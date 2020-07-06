@@ -27,6 +27,20 @@ describe Board do
     end
   end
 
+  describe "[]=" do
+
+    it "sets a value at a position" do
+      subject['a', 1] = 'greg'
+      expect(subject['a', 1]).to eql('greg')
+    end
+
+    it "returns nil if position does not exist" do
+      subject['z', 99] = 'greg'
+      expect(subject['z', 99]).to be_nil
+    end
+
+  end
+
   describe "#build_board" do
     let(:test_board) { subject.build_board }
 

@@ -29,6 +29,11 @@ class Board
     @cells[[alpha, num]] || nil
   end
 
+  def []=(alpha, num, val)
+    return nil unless @cells.has_key?([alpha, num])
+    @cells[[alpha, num]] = val
+  end
+
   def assign_adjacents(cells = @cells)
     cells.each_pair do |key, cell|
       INCREMENTS.each do |inc|
