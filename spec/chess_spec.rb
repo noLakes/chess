@@ -16,6 +16,17 @@ describe Board do
 
   end
 
+  describe "[]" do
+
+    it "returns position values from the @tiles hash" do
+      expect(subject['a', 2]).to be_kind_of(Cell)
+    end
+
+    it "returns nil if a position does not exist" do
+      expect(subject['z', 3]).to be_nil
+    end
+  end
+
   describe "#build_board" do
     let(:test_board) { subject.build_board }
 
