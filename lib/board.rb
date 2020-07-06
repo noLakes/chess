@@ -45,9 +45,9 @@ class Board
     @cells[pos]
   end
 
-  def set_pos(pos, piece)
+  def set_pos(pos, val)
     return nil unless check_pos(pos)
-    @cells[pos] = piece
+    @cells[pos] = val
   end
 
   def txt

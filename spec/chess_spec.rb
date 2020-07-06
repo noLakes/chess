@@ -95,6 +95,7 @@ describe Board do
 
   end
 
+
   describe "#txt" do
 
     it "returns a string" do
@@ -149,6 +150,15 @@ describe Cell do
       test_cell = Cell.new(['b', 2])
       cell.add_adjacents(test_cell)
       expect(cell.adjacent).to include(test_cell.pos)
+    end
+  end
+
+  describe "#piece=" do
+    
+    it "changes the @piece value" do
+      test = Cell.new(['a', 7])
+      test.piece=(Pawn.new)
+      expect(test.piece).to be_kind_of(Pawn)
     end
   end
 
