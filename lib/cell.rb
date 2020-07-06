@@ -13,7 +13,7 @@ class Cell
   end
 
   def txt
-    piece.nil? ? '[ ]' : piece.txt
+    piece.nil? ? '[ ]' : "[#{piece.txt}]"
   end
 
   def add_adjacents(*cells)
