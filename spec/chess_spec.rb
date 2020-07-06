@@ -67,23 +67,42 @@ describe Board do
     let(:test_board) { subject.setup_board }
 
     it "adds white pawns" do
-
+      test = test_board['a', 2].piece
+      expect(test).to be_kind_of(Pawn)
+      expect(test.color).to eql('W')
     end
 
     it "adds black pawns" do
-
+      test = test_board['a', 7].piece
+      expect(test).to be_kind_of(Pawn)
+      expect(test.color).to eql('B')
     end
 
     it "adds white backline" do
-
+      test1 = test_board['a', 1].piece
+      expect(test1).to be_kind_of(Rook)
+      expect(test1.color).to eql('W')
+      
+      test2 = test_board['b', 1].piece
+      expect(test2).to be_kind_of(Knight)
+      expect(test2.color).to eql('W')
     end
 
     it "adds black backline" do
-
+      test1 = test_board['a', 8].piece
+      expect(test1).to be_kind_of(Rook)
+      expect(test1.color).to eql('B')
+      
+      test2 = test_board['b', 8].piece
+      expect(test2).to be_kind_of(Knight)
+      expect(test2.color).to eql('B')
     end
 
     it "leaves ranks 3..6 empty" do
-
+      expect(test_board['a', 3].piece).to be_nil
+      expect(test_board['b', 4].piece).to be_nil
+      expect(test_board['c', 5].piece).to be_nil
+      expect(test_board['d', 6].piece).to be_nil
     end
 
   end
