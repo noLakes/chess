@@ -38,6 +38,31 @@ describe Board do
     end
   end
 
+  describe "setup_board" do
+    let(:test_board) { subject.setup_board }
+
+    it "adds white pawns" do
+
+    end
+
+    it "adds black pawns" do
+
+    end
+
+    it "adds white backline" do
+
+    end
+
+    it "adds black backline" do
+
+    end
+
+    it "leaves ranks 3..6 empty" do
+
+    end
+
+  end
+
   describe "#assign_adjacents" do
     let(:cells) { subject.cells }
 
