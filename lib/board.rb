@@ -49,11 +49,6 @@ class Board
     @cells.include?(pos)
   end
 
-  def set_pos(pos, val)
-    return nil unless check_pos(pos)
-    @cells[pos] = val
-  end
-
   def txt
     text = []
     i = 8

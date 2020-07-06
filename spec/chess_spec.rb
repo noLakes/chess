@@ -102,20 +102,6 @@ describe Board do
 
   end
 
-  describe "#set_pos" do
-
-    it "changes a hash value in @cells" do
-      subject.set_pos(['c', 7], 1)
-      expect(subject.cells[['c', 7]]).to eql(1)
-    end
-
-    it "returns nil if the position doesnt exist" do
-      test = subject.set_pos(['j', 9], 1)
-      expect(test).to be_nil
-    end
-
-  end
-
   describe "#check_pos" do
 
     it "returns true if a position exists on the board" do
