@@ -102,19 +102,6 @@ describe Board do
 
   end
 
-  describe "#get_pos" do
-
-    it "returns the value of a key in @cells" do
-      subject.cells[['a', 3]] = 22
-      expect(subject.get_pos(['a', 3])).to eql(22)
-    end
-
-    it "returns nil if the position doesnt exist" do
-      test = subject.get_pos(['z', 3])
-      expect(test).to be_nil
-    end
-  end
-
   describe "#check_pos" do
 
     it "returns true if a position exists on the board" do

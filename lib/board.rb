@@ -34,7 +34,7 @@ class Board
       INCREMENTS.each do |inc|
         x = (key[0].ord + inc[0]).chr
         y = key[1] + inc[1]
-        adj = get_pos([x, y])
+        adj = self[x, y]
         cell.add_adjacents(adj) if !adj.nil?
       end
     end
@@ -42,11 +42,6 @@ class Board
 
   def check_pos(pos)
     @cells.include?(pos)
-  end
-
-  def get_pos(pos)
-    return nil unless check_pos(pos)
-    @cells[pos]
   end
 
   def set_pos(pos, val)
@@ -60,7 +55,7 @@ class Board
     until i <= 0 do
       text << " #{i}"
       ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].each do |char|
-        cell = get_pos([char, i])
+        cell = self[char, i]
         text << cell.txt
       end
       text << "\n"
