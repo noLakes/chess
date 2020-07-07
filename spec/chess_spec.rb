@@ -27,6 +27,17 @@ describe Game do
       expect(subject.new.turn).not_to be_nil
     end
   end
+
+  describe "#alpha_add" do
+    
+    it "accepts two arrays as args" do
+
+    end
+
+    it "retursn an array result ['alpha', num]" do
+
+    end
+  end
 end
 
 describe Board do
