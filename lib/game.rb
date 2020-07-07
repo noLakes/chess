@@ -3,8 +3,7 @@ require_relative 'board'
 Dir["/pieces/*"].each {|file| require file }
 
 class Game
-  
-
+  include Chess_methods
   attr_reader :board, :player, :turn
 
   def initialize

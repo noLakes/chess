@@ -1,5 +1,7 @@
+require_relative 'chess_methods'
 
 class Cell
+  include Chess_methods
   attr_reader :pos, :piece, :adjacent
 
   def initialize(pos, piece = nil, adj = [])

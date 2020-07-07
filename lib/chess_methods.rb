@@ -7,4 +7,8 @@ module Chess_methods
     [x, y]
   end
 
+  def in_board(pos)
+    pos[0].between?('a', 'h') && pos[1].between?(1, 8)
+  end
+
 end

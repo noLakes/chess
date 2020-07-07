@@ -11,6 +11,19 @@ describe Chess_methods do
       expect(test.alpha_add(['a', 3], [2, 1])).to eql(['c', 4])
     end
   end
+
+  describe "#in_board" do
+    let(:test) { Cell.new('W') }
+    
+    it "returns true if a pos would be on a chess board" do
+      expect(test.in_board(['a', 8])).to be_truthy
+    end
+
+    it "returns false if a pos would not be on a chess board" do
+      expect(test.in_board(['g', 12])).to be_falsey
+    end
+
+  end
   
 end
 
