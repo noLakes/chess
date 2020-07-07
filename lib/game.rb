@@ -3,6 +3,7 @@ require_relative 'board'
 Dir["/pieces/*"].each {|file| require file }
 
 class Game
+  
 
   attr_reader :board, :player, :turn
 

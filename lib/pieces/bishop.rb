@@ -1,5 +1,6 @@
 
 class Bishop
+  include Piece
 
   attr_reader :color, :pos, :txt, :increments
 

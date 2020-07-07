@@ -1,5 +1,6 @@
 
 class Knight
+  include Piece
 
   attr_reader :color, :pos, :txt, :increments
 

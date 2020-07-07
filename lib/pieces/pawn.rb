@@ -1,5 +1,6 @@
 
 class Pawn
+  include Piece
 
   attr_reader :color, :pos, :txt, :increments
 
