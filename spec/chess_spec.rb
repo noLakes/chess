@@ -1,8 +1,32 @@
-require './lib/board.rb'
+require './lib/game.rb'
 Dir["./lib/pieces/*"].each {|file| require file }
 
 describe Game do
+  subject { Game }
 
+  describe "#initialize" do
+
+    it "creates a game obj" do
+      expect(subject.new).to be_kind_of(Game)
+    end
+
+    it "has instance variable for a board obj" do
+      test = subject.new.board
+      expect(test).not_to be_nil
+      expect(test).to be_kind_of(Board)
+    end
+
+    it "has an instance variable for player" do
+      test = subject.new.player
+      expect(test).not_to be_nil
+      expect(test).to include('W')
+      expect(test).to include('B')
+    end
+
+    it "has an instance variable for turn" do
+      expect(subject.new.turn).not_to be_nil
+    end
+  end
 end
 
 describe Board do
