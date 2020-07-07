@@ -3,6 +3,17 @@ require './lib/chess_methods.rb'
 Dir["./lib/pieces/*"].each {|file| require file }
 
 describe Chess_methods do
+
+  describe "#alpha_add" do
+    
+    it "accepts two arrays as args" do
+
+    end
+
+    it "returns an array result ['alpha', num]" do
+
+    end
+  end
   
 end
 
@@ -33,16 +44,6 @@ describe Game do
     end
   end
 
-  describe "#alpha_add" do
-    
-    it "accepts two arrays as args" do
-
-    end
-
-    it "returns an array result ['alpha', num]" do
-
-    end
-  end
 end
 
 describe Board do
