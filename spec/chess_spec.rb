@@ -5,13 +5,10 @@ Dir["./lib/pieces/*"].each {|file| require file }
 describe Chess_methods do
 
   describe "#alpha_add" do
-    
-    it "accepts two arrays as args" do
 
-    end
-
-    it "returns an array result ['alpha', num]" do
-
+    it "increments a chess position (arg1) with the values in arg 2" do
+      test = Board.new
+      expect(test.alpha_add(['a', 3], [2, 1])).to eql(['c', 4])
     end
   end
   

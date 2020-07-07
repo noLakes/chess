@@ -1,4 +1,4 @@
-require './chess_methods.rb'
+require 'chess_methods.rb'
 
 class Bishop
   include Chess_methods
