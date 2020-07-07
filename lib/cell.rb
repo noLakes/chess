@@ -20,7 +20,7 @@ class Cell
 
   def add_adjacents(*cells)
     cells.each do |cell|
-      if cell.pos[0].between?('a', 'g') && cell.pos[1].between?(1, 8)
+      if in_board(cell.pos)
         @adjacent << cell.pos
       end
     end
