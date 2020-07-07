@@ -1,6 +1,10 @@
 require './lib/board.rb'
 Dir["./lib/pieces/*"].each {|file| require file }
 
+describe Game do
+
+end
+
 describe Board do
   subject(:board) { Board.new }
 
