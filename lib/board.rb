@@ -73,9 +73,8 @@ class Board
   def assign_adjacents(cells = @cells)
     cells.each_pair do |key, cell|
       INCREMENTS.each do |inc|
-        x = (key[0].ord + inc[0]).chr
-        y = key[1] + inc[1]
-        adj = self[x, y]
+        sum = alpha_add(key, inc)
+        adj = self[sum[0], sum[1]]
         cell.add_adjacents(adj) if !adj.nil?
       end
     end
