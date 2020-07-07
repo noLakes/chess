@@ -1,6 +1,7 @@
+require './chess_methods.rb'
 
 class Bishop
-  include Piece
+  include Chess_methods
 
   attr_reader :color, :pos, :txt, :increments
 

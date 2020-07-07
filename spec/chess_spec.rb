@@ -1,5 +1,10 @@
 require './lib/game.rb'
+require './lib/chess_methods.rb'
 Dir["./lib/pieces/*"].each {|file| require file }
+
+describe Chess_methods do
+  
+end
 
 describe Game do
   subject { Game }
@@ -34,7 +39,7 @@ describe Game do
 
     end
 
-    it "retursn an array result ['alpha', num]" do
+    it "returns an array result ['alpha', num]" do
 
     end
   end

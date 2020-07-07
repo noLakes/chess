@@ -1,6 +1,7 @@
+require './chess_methods.rb'
 
 class King
-  include Piece
+  include Chess_methods
 
   attr_reader :color, :pos, :txt, :increments
 
