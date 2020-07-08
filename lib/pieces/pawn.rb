@@ -9,8 +9,8 @@ class Pawn
     @color = color
     @pos = pos
     @txt = @color == 'W' ? "\u2659" : "\u265F"
-    @increments = [[0, 1], [0, 2], [-1, 1], [1, 1]]
-    @range = [[0, 1], [0, 2], [-1, 1], [1, 1]]
+    @increments = [[0, 1], [0, 2], [-1, 1], [1, 1]].freeze
+    @range = [[0, 1], [0, 2], [-1, 1], [1, 1]].freeze
   end
 
 end

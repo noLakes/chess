@@ -22,8 +22,9 @@ describe Chess_methods do
     it "returns false if a pos would not be on a chess board" do
       expect(test.in_board(['g', 12])).to be_falsey
     end
-
   end
+
+  describe "#"
 
 end
 
