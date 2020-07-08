@@ -24,7 +24,7 @@ describe Chess_methods do
     end
 
   end
-  
+
 end
 
 describe Game do
@@ -289,9 +289,15 @@ describe Rook do
       expect(subject.pos).to be_nil
     end
 
+
     it "has an instance variable for movement increments (array length > 0)" do
       expect(subject.increments).to be_kind_of(Array)
-      expect(subject.increments.length).to eql(28)
+      expect(subject.increments.length).to eql(4)
+    end
+
+    it "has an instance variable for range" do
+      expect(subject.range).to be_kind_of(Array)
+      expect(subject.range.length).to eql(28)
     end
 
   end
@@ -327,7 +333,11 @@ describe Bishop do
   
     it "has an instance variable for movement increments (array length > 0)" do
       expect(subject.increments).to be_kind_of(Array)
-      expect(subject.increments.length).to eql(28)
+      expect(subject.increments.length).to eql(4)
+    end
+    it "has an instance variable for range" do
+      expect(subject.range).to be_kind_of(Array)
+      expect(subject.range.length).to eql(28)
     end
   
   end
@@ -365,6 +375,11 @@ describe King do
       expect(subject.increments).to be_kind_of(Array)
       expect(subject.increments.length).to eql(8)
     end
+
+    it "has an instance variable for range" do
+      expect(subject.range).to be_kind_of(Array)
+      expect(subject.range.length).to eql(8)
+    end
     
   end
 end
@@ -401,6 +416,11 @@ describe Knight do
       expect(subject.increments).to be_kind_of(Array)
       expect(subject.increments.length).to eql(8)
     end
+
+    it "has an instance variable for range" do
+      expect(subject.range).to be_kind_of(Array)
+      expect(subject.range.length).to eql(8)
+    end
     
   end
 end
@@ -435,7 +455,12 @@ describe Queen do
     
     it "has an instance variable for movement increments (array length > 0)" do
       expect(subject.increments).to be_kind_of(Array)
-      expect(subject.increments.length).to eql(56)
+      expect(subject.increments.length).to eql(8)
+    end
+
+    it "has an instance variable for range" do
+      expect(subject.range).to be_kind_of(Array)
+      expect(subject.range.length).to eql(56)
     end
     
   end
@@ -472,6 +497,11 @@ describe Pawn do
     it "has an instance variable for movement increments (array length > 0)" do
       expect(subject.increments).to be_kind_of(Array)
       expect(subject.increments.length).to eql(4)
+    end
+
+    it "has an instance variable for range" do
+      expect(subject.range).to be_kind_of(Array)
+      expect(subject.range.length).to eql(4)
     end
     
   end
