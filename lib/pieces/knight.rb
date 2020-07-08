@@ -1,4 +1,4 @@
-require 'chess_methods.rb'
+require '/Users/Shan/web-projects/odin_on_rails/ruby_projects/chess/lib/chess_methods.rb'
 
 class Knight
   include Chess_methods

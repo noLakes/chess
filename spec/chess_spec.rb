@@ -1,5 +1,5 @@
-require './lib/game.rb'
-require './lib/chess_methods.rb'
+require './lib/game'
+require './lib/chess_methods'
 Dir["./lib/pieces/*"].each {|file| require file }
 
 describe Chess_methods do
