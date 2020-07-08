@@ -24,7 +24,24 @@ describe Chess_methods do
     end
   end
 
-  describe "#"
+  describe "#get_in_range" do
+    
+    it "returns an array of possible moves from current position (Rook)" do
+      test = Rook.new('W', ['d', 5])
+      result = test.get_in_range(test.pos, test.range)
+      expect(result).to include(['a', 5], ['b', 5], ['c', 5], ['e', 5],
+      ['f', 5], ['g', 5], ['h', 5], ['d', 4], ['d', 3], ['d', 2], ['d', 1],
+      ['d', 6], ['d', 7], ['d', 8])
+    end
+
+    it "returns an array of possible moves from current position (Bishop)" do
+      test = Bishop.new('W', ['d', 5])
+      result = test.get_in_range(test.pos, test.range)
+      expect(result).to include(['a', 8], ['a', 2], ['h', 1], ['g', 8],
+      ['c', 6], ['e', 6], ['c', 4], ['e', 4])
+    end
+
+  end
 
 end
 

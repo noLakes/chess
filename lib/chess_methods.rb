@@ -11,4 +11,15 @@ module Chess_methods
     pos[0].between?('a', 'h') && pos[1].between?(1, 8)
   end
 
+  def get_in_range(pos, range)
+    result = []
+    range.each do |inc|
+      new_pos = alpha_add(pos, inc)
+      if in_board(new_pos)
+        result << new_pos
+      end
+    end
+    result
+  end
+
 end
