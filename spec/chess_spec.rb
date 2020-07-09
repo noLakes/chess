@@ -82,6 +82,12 @@ describe Game do
       expect(board['c', 1].piece).to be_nil
       expect(board['c', 8].piece).to be_kind_of(Rook)
     end
+
+    it "works with an illegal move: Rook d1 to c5" do
+      board['d', 1].piece = Rook.new('W', ['d', 1])
+      expect(test_game.move(['d', 1], ['c', 5])).to be_nil
+      expect(board['d', 1].piece).to be_kind_of(Rook)
+    end
   end
 
   describe "#check_path" do
@@ -90,6 +96,10 @@ describe Game do
 
     it "returns true for valid path: Rook c1 to c8" do
       expect(test_game.check_path(['c', 1], ['c', 8])).to be_truthy
+    end
+
+    it "returns false for invalid path: Rook d1 to c5" do
+      expect(test_game.check_path(['d', 1], ['c', 5])).to be_falsey
     end
     
   end
