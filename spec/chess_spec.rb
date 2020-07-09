@@ -318,6 +318,11 @@ describe Rook do
       expect(subject.range.length).to eql(28)
     end
 
+    it "has an instance variable for in_range (default empty array)" do
+      expect(subject.in_range).to be_kind_of(Array)
+      expect(subject.in_range.length).to eql(0)
+    end
+
   end
 end
 
@@ -356,6 +361,11 @@ describe Bishop do
     it "has an instance variable for range" do
       expect(subject.range).to be_kind_of(Array)
       expect(subject.range.length).to eql(28)
+    end
+
+    it "has an instance variable for in_range (default empty array)" do
+      expect(subject.in_range).to be_kind_of(Array)
+      expect(subject.in_range.length).to eql(0)
     end
   
   end
@@ -398,6 +408,11 @@ describe King do
       expect(subject.range).to be_kind_of(Array)
       expect(subject.range.length).to eql(8)
     end
+
+    it "has an instance variable for in_range (default empty array)" do
+      expect(subject.in_range).to be_kind_of(Array)
+      expect(subject.in_range.length).to eql(0)
+    end
     
   end
 end
@@ -438,6 +453,11 @@ describe Knight do
     it "has an instance variable for range" do
       expect(subject.range).to be_kind_of(Array)
       expect(subject.range.length).to eql(8)
+    end
+
+    it "has an instance variable for in_range (default empty array)" do
+      expect(subject.in_range).to be_kind_of(Array)
+      expect(subject.in_range.length).to eql(0)
     end
     
   end
@@ -480,6 +500,11 @@ describe Queen do
       expect(subject.range).to be_kind_of(Array)
       expect(subject.range.length).to eql(56)
     end
+
+    it "has an instance variable for in_range (default empty array)" do
+      expect(subject.in_range).to be_kind_of(Array)
+      expect(subject.in_range.length).to eql(0)
+    end
     
   end
 end
@@ -520,6 +545,11 @@ describe Pawn do
     it "has an instance variable for range" do
       expect(subject.range).to be_kind_of(Array)
       expect(subject.range.length).to eql(4)
+    end
+
+    it "has an instance variable for in_range (default empty array)" do
+      expect(subject.in_range).to be_kind_of(Array)
+      expect(subject.in_range.length).to eql(0)
     end
     
   end
