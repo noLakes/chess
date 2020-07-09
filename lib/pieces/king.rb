@@ -16,5 +16,11 @@ class King
     @in_range = []
   end
 
+  def pos=(new_pos)
+    return nil unless in_board(new_pos)
+    @pos = new_pos
+    @in_range = get_in_range(@pos, @range)
+  end
+
 end
 

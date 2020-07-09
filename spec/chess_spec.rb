@@ -324,6 +324,25 @@ describe Rook do
     end
 
   end
+
+  describe "#pos=" do
+    let(:test) { Rook.new }
+    
+    it "changes @pos" do
+      test.pos = ['c', 2]
+      expect(test.pos).to eql(['c', 2])
+    end
+
+    it "updates in_range according to new pos" do
+      test.pos = ['c', 2]
+      expect(test.in_range).to include(['c', 1])
+      expect(test.in_range).to include(['a', 2])
+      expect(test.in_range).to include(['c', 8])
+      expect(test.in_range).to include(['h', 2])
+    end
+  end
+
+
 end
 
 describe Bishop do
@@ -368,6 +387,23 @@ describe Bishop do
       expect(subject.in_range.length).to eql(0)
     end
   
+  end
+
+  describe "#pos=" do
+    let(:test) { Bishop.new }
+    
+    it "changes @pos" do
+      test.pos = ['c', 2]
+      expect(test.pos).to eql(['c', 2])
+    end
+
+    it "updates in_range according to new pos" do
+      test.pos = ['c', 2]
+      expect(test.in_range).to include(['b', 1])
+      expect(test.in_range).to include(['h', 7])
+      expect(test.in_range).to include(['a', 4])
+      expect(test.in_range).to include(['d', 1])
+    end
   end
 end
 
@@ -415,6 +451,23 @@ describe King do
     end
     
   end
+
+  describe "#pos=" do
+    let(:test) { King.new }
+    
+    it "changes @pos" do
+      test.pos = ['c', 2]
+      expect(test.pos).to eql(['c', 2])
+    end
+
+    it "updates in_range according to new pos" do
+      test.pos = ['c', 2]
+      expect(test.in_range).to include(['c', 1])
+      expect(test.in_range).to include(['b', 2])
+      expect(test.in_range).to include(['b', 3])
+      expect(test.in_range).to include(['d', 3])
+    end
+  end
 end
 
 describe Knight do
@@ -460,6 +513,23 @@ describe Knight do
       expect(subject.in_range.length).to eql(0)
     end
     
+  end
+
+  describe "#pos=" do
+    let(:test) { Knight.new }
+    
+    it "changes @pos" do
+      test.pos = ['c', 2]
+      expect(test.pos).to eql(['c', 2])
+    end
+
+    it "updates in_range according to new pos" do
+      test.pos = ['c', 2]
+      expect(test.in_range).to include(['d', 4])
+      expect(test.in_range).to include(['a', 3])
+      expect(test.in_range).to include(['e', 1])
+      expect(test.in_range).to include(['b', 4])
+    end
   end
 end
 
@@ -507,6 +577,23 @@ describe Queen do
     end
     
   end
+
+  describe "#pos=" do
+    let(:test) { Queen.new }
+    
+    it "changes @pos" do
+      test.pos = ['c', 2]
+      expect(test.pos).to eql(['c', 2])
+    end
+
+    it "updates in_range according to new pos" do
+      test.pos = ['c', 2]
+      expect(test.in_range).to include(['h', 7])
+      expect(test.in_range).to include(['h', 2])
+      expect(test.in_range).to include(['c', 1])
+      expect(test.in_range).to include(['c', 8])
+    end
+  end
 end
 
 describe Pawn do
@@ -552,6 +639,23 @@ describe Pawn do
       expect(subject.in_range.length).to eql(0)
     end
     
+  end
+
+  describe "#pos=" do
+    let(:test) { Pawn.new }
+    
+    it "changes @pos" do
+      test.pos = ['c', 2]
+      expect(test.pos).to eql(['c', 2])
+    end
+
+    it "updates in_range according to new pos" do
+      test.pos = ['c', 2]
+      expect(test.in_range).to include(['c', 4])
+      expect(test.in_range).to include(['b', 3])
+      expect(test.in_range).to include(['d', 3])
+      expect(test.in_range).to include(['c', 3])
+    end
   end
 end
 
