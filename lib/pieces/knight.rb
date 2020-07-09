@@ -13,7 +13,7 @@ class Knight
     [-1, -2], [-2, -1], [-2, 1], [-1, 2] ].freeze
     @range = [ [1, 2], [2, 1], [2, -1], [1, -2],
     [-1, -2], [-2, -1], [-2, 1], [-1, 2] ].freeze
-    @in_range = []
+    @in_range = @pos.nil? ? [] : get_in_range(@pos, @range)
   end
 
   def pos=(new_pos)

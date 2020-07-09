@@ -11,7 +11,7 @@ class Pawn
     @txt = @color == 'W' ? "\u2659" : "\u265F"
     @increments = [[0, 1], [0, 2], [-1, 1], [1, 1]].freeze
     @range = [[0, 1], [0, 2], [-1, 1], [1, 1]].freeze
-    @in_range = []
+    @in_range = @pos.nil? ? [] : get_in_range(@pos, @range)
   end
 
   def pos=(new_pos)
