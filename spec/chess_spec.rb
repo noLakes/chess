@@ -72,6 +72,28 @@ describe Game do
     end
   end
 
+  describe "#move" do
+    let(:test_game) { subject.new }
+    let(:board) { test_game.board }
+    
+    it "works with a legal move: Rook c1 to c8" do
+      board['c', 1].piece = Rook.new('W', ['c', 1])
+      test_game.move(['c', 1], ['c', 8])
+      expect(board['c', 1].piece).to be_nil
+      expect(board['c', 8].piece).to be_kind_of(Rook)
+    end
+  end
+
+  describe "#check_path" do
+    let(:test_game) { subject.new }
+    let(:board) { test_game.board }
+
+    it "returns true for valid path: Rook c1 to c8" do
+      expect(test_game.check_path(['c', 1], ['c', 8])).to be_truthy
+    end
+    
+  end
+
 end
 
 describe Board do
