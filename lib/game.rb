@@ -1,6 +1,7 @@
 require_relative 'cell'
 require_relative 'board'
 require_relative 'chess_methods'
+require_relative 'player'
 Dir["/pieces/*"].each {|file| require file }
 
 class Game
@@ -25,6 +26,24 @@ class Game
       pos = pos.split(//)
       pos[1] = pos[1].to_i
       pos
+    end
+    input
+  end
+
+  #designed to take formatted input
+  def valid_input(input)
+    pos1 = @board.cells[input[0]]
+    pos2 = @board.cells[input[1]]
+    if pos1.nil? || pos2.nil?
+      return false
+    elsif pos1.piece.nil?
+      return false
+    elsif pos1.piece.color != @turn.color
+      return false
+    elsif pos2.piece != nil && pos2.piece.color == @turn.color
+      return false
+    else
+      return true
     end
   end
 

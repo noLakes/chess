@@ -104,6 +104,35 @@ describe Game do
     end
   end
 
+  describe "#valid_input" do
+    let(:test) { subject.new }
+
+    context "returns false" do
+      
+      it "when given a pos that does not exist" do
+        expect(test.valid_input([['a', 3], ['k', 1]])).to be_falsey
+      end
+
+      it "when given a start pos that has no piece" do
+        expect(test.valid_input([['a', 2], ['a', 3]])).to be_falsey
+      end
+
+      it "when given a start pos containing a piece not belonging to current player" do
+        test.board['c', 3].piece = Pawn.new('B', ['c', 3])
+        expect(test.valid_input([['c', 3], ['c', 4]])).to be_falsey
+      end
+
+    end
+
+    context "returns true" do
+      
+      it "when given two real positions, the first having the only friendly piece" do
+        test.board.setup_board
+        expect(test.valid_input([['b', 2], ['b', 3]])).to be_truthy
+      end
+    end
+  end
+
 end
 
 describe Player do
