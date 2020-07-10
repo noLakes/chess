@@ -19,4 +19,13 @@ class Game
     move
   end
 
+  def format_input(input)
+    input = input.split
+    input.map! do |pos|
+      pos = pos.split(//)
+      pos[1] = pos[1].to_i
+      pos
+    end
+  end
+
 end

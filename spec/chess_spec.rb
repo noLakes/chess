@@ -84,6 +84,26 @@ describe Game do
 
   end
 
+  describe "#format_input" do
+  
+    it "takes a string an returns an array with two items" do
+      test = subject.new.format_input('d3 d4')
+      expect(test).to be_kind_of(Array)
+      expect(test.length).to eql(2)
+    end
+
+    it "splits at spaces, then splits again at each character" do
+      test = subject.new.format_input('d3 d4')
+      expect(test[0].length).to eql(2)
+    end
+
+    it "converts string nums back to nums" do
+      test = subject.new.format_input('d3 d4')
+      expect(test[0][1]).to eql(3)
+      expect(test[1][1]).to eql(4)
+    end
+  end
+
 end
 
 describe Player do
