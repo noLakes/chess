@@ -74,6 +74,16 @@ describe Game do
     end
   end
 
+  describe "#get_move" do
+    
+    it "asks for input" do
+      test = subject.new
+      expect(test).to receive(:gets) { 'd3 d4' }
+      test.get_move
+    end
+
+  end
+
 end
 
 describe Player do
