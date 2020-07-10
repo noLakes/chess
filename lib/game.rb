@@ -84,11 +84,19 @@ class Game
     piece = cell1.piece
     diff = pos_difference(input)
     
-    if piece.increments.include?(diff)
-      inc = diff
-    else
-      
+    inc = piece.increments.include?(diff) ? diff : diff_to_inc(diff)
+    result = false
+    read = @board.cells[alpha_add(input[0], inc)]
+    loop do
+      if read == cell2
+        result = true
+        break
+      elsif read.piece != nil
+        break
+      end
+      read = @board.cells[alpha_add(read.pos, inc)]
     end
+    result
   end
 
 end

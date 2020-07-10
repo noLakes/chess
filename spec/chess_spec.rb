@@ -194,13 +194,32 @@ describe Game do
 
     context "when path is obstructed by another piece" do
 
+      it "returns false" do
+        board['a', 1].piece = Rook.new('W', ['a', 1])
+        board['a', 4].piece = Rook.new('B', ['a', 4])
+        expect(test.valid_path([['a', 1], ['a', 8]])).to be_falsey
+      end
     end
 
     context "when path is clear" do
 
+      it "returns true" do
+        board['a', 1].piece = Rook.new('W', ['a', 1])
+        board['a', 8].piece = Rook.new('B', ['a', 8])
+        expect(test.valid_path([['a', 1], ['a', 8]])).to be_truthy
+      end
+
     end
 
     context "when called for Knight (needs no path)" do
+
+      it "is true and can path over the top of other pieces" do
+        board['a', 1].piece = Knight.new('W', ['a', 1])
+        board['a', 2].piece = Pawn.new('B', ['a', 2])
+        board['b', 2].piece = Queen.new('B', ['b', 2])
+        board['b', 1].piece = Bishop.new('B', ['b', 1])
+        expect(test.valid_path([['a', 1], ['b', 3]])).to be_truthy
+      end
 
     end
     
