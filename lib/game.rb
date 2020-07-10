@@ -47,4 +47,12 @@ class Game
     end
   end
 
+  #designed to take formatted input
+  def valid_range(input)
+    cell1 = @board.cells[input[0]]
+    cell2 = @board.cells[input[1]]
+    return false if cell1.nil? || cell2.nil?
+    cell1.piece.in_range.include?(cell2.pos)
+  end
+
 end

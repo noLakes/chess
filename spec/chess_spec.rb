@@ -145,6 +145,24 @@ describe Game do
     end
   end
 
+  describe "#valid_range" do
+    let(:test) { subject.new }
+
+    it "returns true when piece in pos1 has pos2 in-range" do
+      test.board['c', 2].piece = Knight.new('W', ['c', 2])
+      expect(test.valid_range([['c', 2], ['d', 4]])).to be_truthy
+      expect(test.valid_range([['c', 2], ['b', 4]])).to be_truthy
+      expect(test.valid_range([['c', 2], ['e', 1]])).to be_truthy
+    end
+
+    it "returns false when piece in pos1 does not have pos2 in-range" do
+      test.board['c', 2].piece = Knight.new('W', ['c', 2])
+      expect(test.valid_range([['c', 2], ['d', 2]])).to be_falsey
+      expect(test.valid_range([['c', 2], ['c', 3]])).to be_falsey
+      expect(test.valid_range([['c', 2], ['g', 8]])).to be_falsey
+    end
+  end
+
 end
 
 describe Player do
