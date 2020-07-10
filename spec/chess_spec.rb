@@ -122,12 +122,24 @@ describe Game do
         expect(test.valid_input([['c', 3], ['c', 4]])).to be_falsey
       end
 
+      it "when given an end pos containing a piece of player color" do
+        test.board['c', 2].piece = Pawn.new('W', ['c', 2])
+        test.board['c', 3].piece = Knight.new('W', ['c', 3])
+        expect(test.valid_input([['c', 2], ['c', 3]])).to be_falsey
+      end
+
     end
 
     context "returns true" do
       
       it "when given two real positions, the first having the only friendly piece" do
         test.board.setup_board
+        expect(test.valid_input([['b', 2], ['b', 3]])).to be_truthy
+      end
+
+      it "when given two real positions, the first having friendly piece, the second hostile" do
+        test.board.setup_board
+        test.board['b', 3].piece = Bishop.new('B', ['b', 3])
         expect(test.valid_input([['b', 2], ['b', 3]])).to be_truthy
       end
     end
