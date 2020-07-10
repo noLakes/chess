@@ -163,6 +163,33 @@ describe Game do
     end
   end
 
+  describe "pos_difference" do
+    let(:test) { subject.new }
+
+    it "returns the difference between pos1 and pos2" do
+      expect(test.pos_difference([['c', 1], ['f', 4]])).to eql([3, 3])
+      expect(test.pos_difference([['a', 1], ['h', 8]])).to eql([7, 7])
+    end
+  end
+
+  describe "#valid_path" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    context "when path is obstructed by another piece" do
+
+    end
+
+    context "when path is clear" do
+
+    end
+
+    context "when called for Knight (needs no path)" do
+
+    end
+    
+  end
+
 end
 
 describe Player do

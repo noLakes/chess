@@ -55,4 +55,16 @@ class Game
     cell1.piece.in_range.include?(cell2.pos)
   end
 
+  #designed to take formatted input
+  def pos_difference(input)
+    x_diff = input[1][0].ord - input[0][0].ord
+    y_diff = input[1][1] - input[0][1]
+    [x_diff, y_diff]
+  end
+
+  #designed to take formatted input (assumes previous tests have passed)
+  def valid_path(input)
+    
+  end
+
 end
