@@ -9,8 +9,8 @@ class Game
 
   def initialize
     @board = Board.new
-    @player = ['W', 'B']
-    @turn = @player[0]
+    @player = { 1 => Player.new, 2 => Player.new('B', false)}
+    @turn = @player[1]
   end
 
 end

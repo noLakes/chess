@@ -63,9 +63,10 @@ describe Game do
 
     it "has an instance variable for player" do
       test = subject.new.player
-      expect(test).not_to be_nil
-      expect(test).to include('W')
-      expect(test).to include('B')
+      expect(test[1]).not_to be_nil
+      expect(test[2]).not_to be_nil
+      expect(test[1].color).to eql('W')
+      expect(test[2].color).to eql('B')
     end
 
     it "has an instance variable for turn" do
