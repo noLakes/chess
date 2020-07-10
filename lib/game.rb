@@ -62,9 +62,33 @@ class Game
     [x_diff, y_diff]
   end
 
+  #reduces x > 0 to 1 and x < 0 to -1
+  def diff_to_inc(diff)
+    result = []
+    diff.each do |num|
+      if num > 0
+        result << 1
+      elsif num < 0
+        result << -1
+      else
+        result << 0
+      end
+    end
+    result
+  end
+
   #designed to take formatted input (assumes previous tests have passed)
   def valid_path(input)
+    cell1 = @board.cells[input[0]]
+    cell2 = @board.cells[input[1]]
+    piece = cell1.piece
+    diff = pos_difference(input)
     
+    if piece.increments.include?(diff)
+      inc = diff
+    else
+      
+    end
   end
 
 end

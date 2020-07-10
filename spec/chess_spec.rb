@@ -172,6 +172,22 @@ describe Game do
     end
   end
 
+  describe "diff_to_inc" do
+    let(:test) { subject.new }
+
+    it "converts number greater than 0 down to 1" do
+      expect(test.diff_to_inc([3, 8])).to eql([1, 1])
+    end
+
+    it "converts number less than 0 up to -1" do
+      expect(test.diff_to_inc([-1, -7])).to eql([-1, -1])
+    end
+
+    it "leaves 0's alone" do
+      expect(test.diff_to_inc([3, 0])).to eql([1, 0])
+    end
+  end
+
   describe "#valid_path" do
     let(:test) { subject.new }
     let(:board) { test.board }
