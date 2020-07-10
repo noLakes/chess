@@ -1,4 +1,5 @@
 require './lib/game'
+require './lib/player'
 require './lib/chess_methods'
 Dir["./lib/pieces/*"].each {|file| require file }
 
@@ -72,6 +73,29 @@ describe Game do
     end
   end
 
+end
+
+describe Player do
+  
+  describe "#initialize" do
+    let(:default) { Player.new }
+    let(:manual) { Player.new('B', false) }
+    
+    it "creates a player obj" do
+      expect(default).to be_kind_of(Player)
+      expect(manual).to be_kind_of(Player)
+    end
+
+    it "sets up color variable" do
+      expect(default.color).to eql('W')
+      expect(manual.color).to eql('B')
+    end
+
+    it "sets bool variable for human" do
+      expect(default.human).to be_truthy
+      expect(manual.human).to be_falsey
+    end
+  end
 end
 
 describe Board do
