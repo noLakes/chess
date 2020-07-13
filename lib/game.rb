@@ -31,6 +31,27 @@ class Game
   end
 
   #designed to take formatted input
+  def valid_input(input)
+    pos1 = @board.cells[input[0]]
+    pos2 = @board.cells[input[1]]
+    if pos1.nil? || pos2.nil?
+      puts "error: enter valid positions"
+      return false
+    elsif pos1.piece.nil?
+      puts "error: starting position has no piece!"
+      return false
+    elsif pos1.piece.color != @turn.color
+      puts "error: select friendly piece to move"
+      return false
+    elsif pos2.piece != nil && pos2.piece.color == @turn.color
+      puts "error: friendly piece at destination"
+      return false
+    else
+      return true
+    end
+  end
+
+  #designed to take formatted input
   def input_to_cells(formatted_input)
     result = nil
     if valid_input(formatted_input)
@@ -38,23 +59,6 @@ class Game
       formatted_input.each { |pos| result << @board.cells[pos]}
     end
     result
-  end
-
-  #designed to take formatted input
-  def valid_input(input)
-    pos1 = @board.cells[input[0]]
-    pos2 = @board.cells[input[1]]
-    if pos1.nil? || pos2.nil?
-      return false
-    elsif pos1.piece.nil?
-      return false
-    elsif pos1.piece.color != @turn.color
-      return false
-    elsif pos2.piece != nil && pos2.piece.color == @turn.color
-      return false
-    else
-      return true
-    end
   end
 
   #designed to take formatted input
