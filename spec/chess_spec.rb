@@ -104,6 +104,19 @@ describe Game do
     end
   end
 
+  describe "#input_to_cells" do
+    let(:test) { subject.new }
+
+    it "takes formatted input and returns Array of matching Cells" do
+      test.board.setup_board
+      input = test.format_input("a2 a3")
+      cells = test.input_to_cells(input)
+      expect(cells).to be_kind_of(Array)
+      expect(cells[0]).to be_kind_of(Cell)
+      expect(cells[1]).to be_kind_of(Cell)
+    end
+  end
+
   describe "#valid_input" do
     let(:test) { subject.new }
 

@@ -31,6 +31,16 @@ class Game
   end
 
   #designed to take formatted input
+  def input_to_cells(formatted_input)
+    result = nil
+    if valid_input(formatted_input)
+      result = []
+      formatted_input.each { |pos| result << @board.cells[pos]}
+    end
+    result
+  end
+
+  #designed to take formatted input
   def valid_input(input)
     pos1 = @board.cells[input[0]]
     pos2 = @board.cells[input[1]]
