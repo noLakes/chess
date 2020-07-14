@@ -99,9 +99,11 @@ describe Game do
     it "takes input and returns Array of matching Cells" do
       test.board.setup_board
       cells = test.format_input("a2 a3")
+      test_cell_1 = test.board['a', 2]
+      test_cell_2 = test.board['a', 3]
       expect(cells).to be_kind_of(Array)
-      expect(cells[0]).to be_kind_of(Cell)
-      expect(cells[1]).to be_kind_of(Cell)
+      expect(cells[0]).to eql(test_cell_1)
+      expect(cells[1]).to eql(test_cell_2)
     end
   end
 
