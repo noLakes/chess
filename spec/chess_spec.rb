@@ -83,6 +83,14 @@ describe Game do
       test.get_move
     end
 
+    it "returns formatted input" do
+      test = subject.new
+      test.board['d', 2].piece = Pawn.new('W', ['d', 2])
+      allow(test).to receive(:gets) { 'd2 d3' }
+      expect(test.get_move).to be_kind_of(Array)
+      expect(test.get_move[0]).to eql(['d', 2])
+    end
+
   end
 
   describe "#format_input" do
