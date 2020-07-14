@@ -61,18 +61,16 @@ class Game
     result
   end
 
-  #designed to take formatted input
-  def valid_range(input)
-    cell1 = @board.cells[input[0]]
-    cell2 = @board.cells[input[1]]
-    return false if cell1.nil? || cell2.nil?
-    cell1.piece.in_range.include?(cell2.pos)
+  #designed to take input as cells
+  def valid_range(cells)
+    return false if cells[0].nil? || cells[1].nil?
+    cells[0].piece.in_range.include?(cells[1].pos)
   end
 
-  #designed to take formatted input
-  def pos_difference(input)
-    x_diff = input[1][0].ord - input[0][0].ord
-    y_diff = input[1][1] - input[0][1]
+  #designed to take input as cells
+  def pos_difference(cells)
+    x_diff = cells[1].pos[0].ord - cells[0].pos[0].ord
+    y_diff = cells[1].pos[1] - cells[0].pos[1]
     [x_diff, y_diff]
   end
 
@@ -91,18 +89,16 @@ class Game
     result
   end
 
-  #designed to take formatted input (assumes previous tests have passed)
-  def valid_path(input)
-    cell1 = @board.cells[input[0]]
-    cell2 = @board.cells[input[1]]
-    piece = cell1.piece
-    diff = pos_difference(input)
+  #designed to take input as cells (assumes previous tests have passed)
+  def valid_path(cells)
+    piece = cells[0].piece
+    diff = pos_difference(cells)
     
     inc = piece.increments.include?(diff) ? diff : diff_to_inc(diff)
     result = false
-    read = @board.cells[alpha_add(input[0], inc)]
+    read = @board.cells[alpha_add(cells[0].pos, inc)]
     loop do
-      if read == cell2
+      if read == cells[1]
         result = true
         break
       elsif read.piece != nil

@@ -160,33 +160,36 @@ describe Game do
 
   describe "#valid_range" do
     let(:test) { subject.new }
+    let(:board) { test.board }
 
     it "returns true when piece in pos1 has pos2 in-range" do
       test.board['c', 2].piece = Knight.new('W', ['c', 2])
-      expect(test.valid_range([['c', 2], ['d', 4]])).to be_truthy
-      expect(test.valid_range([['c', 2], ['b', 4]])).to be_truthy
-      expect(test.valid_range([['c', 2], ['e', 1]])).to be_truthy
+      expect(test.valid_range([board['c', 2], board['d', 4]])).to be_truthy
+      expect(test.valid_range([board['c', 2], board['b', 4]])).to be_truthy
+      expect(test.valid_range([board['c', 2], board['e', 1]])).to be_truthy
     end
 
     it "returns false when piece in pos1 does not have pos2 in-range" do
       test.board['c', 2].piece = Knight.new('W', ['c', 2])
-      expect(test.valid_range([['c', 2], ['d', 2]])).to be_falsey
-      expect(test.valid_range([['c', 2], ['c', 3]])).to be_falsey
-      expect(test.valid_range([['c', 2], ['g', 8]])).to be_falsey
+      expect(test.valid_range([board['c', 2], board['d', 2]])).to be_falsey
+      expect(test.valid_range([board['c', 2], board['c', 3]])).to be_falsey
+      expect(test.valid_range([board['c', 2], board['g', 8]])).to be_falsey
     end
   end
 
   describe "pos_difference" do
     let(:test) { subject.new }
+    let(:board) { test.board }
 
     it "returns the difference between pos1 and pos2" do
-      expect(test.pos_difference([['c', 1], ['f', 4]])).to eql([3, 3])
-      expect(test.pos_difference([['a', 1], ['h', 8]])).to eql([7, 7])
+      expect(test.pos_difference([board['c', 1], board['f', 4]])).to eql([3, 3])
+      expect(test.pos_difference([board['a', 1], board['h', 8]])).to eql([7, 7])
     end
   end
 
   describe "diff_to_inc" do
     let(:test) { subject.new }
+    let(:board) { test.board }
 
     it "converts number greater than 0 down to 1" do
       expect(test.diff_to_inc([3, 8])).to eql([1, 1])
@@ -210,7 +213,7 @@ describe Game do
       it "returns false" do
         board['a', 1].piece = Rook.new('W', ['a', 1])
         board['a', 4].piece = Rook.new('B', ['a', 4])
-        expect(test.valid_path([['a', 1], ['a', 8]])).to be_falsey
+        expect(test.valid_path([board['a', 1], board['a', 8]])).to be_falsey
       end
     end
 
@@ -219,7 +222,7 @@ describe Game do
       it "returns true" do
         board['a', 1].piece = Rook.new('W', ['a', 1])
         board['a', 8].piece = Rook.new('B', ['a', 8])
-        expect(test.valid_path([['a', 1], ['a', 8]])).to be_truthy
+        expect(test.valid_path([board['a', 1], board['a', 8]])).to be_truthy
       end
 
     end
@@ -231,7 +234,7 @@ describe Game do
         board['a', 2].piece = Pawn.new('B', ['a', 2])
         board['b', 2].piece = Queen.new('B', ['b', 2])
         board['b', 1].piece = Bishop.new('B', ['b', 1])
-        expect(test.valid_path([['a', 1], ['b', 3]])).to be_truthy
+        expect(test.valid_path([board['a', 1], board['b', 3]])).to be_truthy
       end
 
     end
