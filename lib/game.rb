@@ -31,7 +31,7 @@ class Game
     return true
   end
 
-  #converts input to pos arrays
+  #converts input to array of cells
   def format_input(input)
     result = []
     input = input.split
@@ -91,7 +91,7 @@ class Game
     result
   end
 
-  #designed to take formatted input (assumes previous tests have passed)
+  #designed to take formatted input
   def valid_path(cells)
     piece = cells[0].piece
     diff = pos_difference(cells)
@@ -109,6 +109,12 @@ class Game
       read = @board.cells[alpha_add(read.pos, inc)]
     end
     result
+  end
+
+  #designed to take formatted input (assumes move is valid)
+  def move(cells)
+    cells[1].piece = cells[0].piece
+    cells[0].piece = nil
   end
 
 end

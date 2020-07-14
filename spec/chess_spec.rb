@@ -232,23 +232,38 @@ describe Game do
     
   end
 
+  #not testing for illegal moves because above methods handle that
   describe "#move" do
     let(:test) { subject.new }
     let(:board) { test.board }
 
-    context "illegal moves" do
-
-      it "returns false" do
-
-      end
-
+    it "reassigns positions (Rook)" do
+      dummy_piece = Rook.new('W', ['c', 1])
+      board['c', 1].piece = dummy_piece
+      dummy_move = test.format_input("c1 c8")
+      test.move(dummy_move)
+      expect(board['c', 1].piece).to be_nil
+      expect(board['c', 8].piece).not_to be_nil
+      expect(board['c', 8].piece).to eql(dummy_piece)
     end
 
-    context "legal moves" do
+    it "reassigns positions (Bishop)" do
+      dummy_piece = Bishop.new('W', ['a', 1])
+      board['a', 1].piece = dummy_piece
+      test.move(test.format_input("a1 h8"))
+      expect(board['a', 1].piece).to be_nil
+      expect(board['h', 8].piece).not_to be_nil
+      expect(board['h', 8].piece).to eql(dummy_piece)
+    end
 
-      it "re-assigns positions" do
-
-      end
+    it "removes taken pieces" do
+      dummy_piece_1 = Rook.new('W', ['b', 1])
+      dummy_piece_2 = Queen.new('B', ['b', 8])
+      board['b', 1].piece = dummy_piece_1
+      board['b', 8].piece = dummy_piece_2
+      test.move(test.format_input("b1 b8"))
+      expect(board['b', 8].piece).to eql(dummy_piece_1)
+      expect(board['b', 8].piece).not_to eql(dummy_piece_2)
     end
 
   end
