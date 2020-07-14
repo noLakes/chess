@@ -14,39 +14,41 @@ class Game
     @turn = @player[1]
   end
 
-  def get_move(move = nil)
+  def get_move
+    move = nil
     loop do
       puts "enter your move (eg: a4 a7)"
-      move = move.nil? ? format_input(gets.chomp.to_s): format_input(move)
+      move = format_input(gets.chomp.to_s)
       break if valid_input(move)
     end
     move
   end
 
+  #converts input to pos arrays
   def format_input(input)
+    result = []
     input = input.split
     input.map! do |pos|
       pos = pos.split(//)
       pos[1] = pos[1].to_i
       pos
     end
-    input
+    input.each { |pos| result << @board.cells[pos]}
+    result
   end
 
   #designed to take formatted input
-  def valid_input(input)
-    pos1 = @board.cells[input[0]]
-    pos2 = @board.cells[input[1]]
-    if pos1.nil? || pos2.nil?
+  def valid_input(cells)
+    if cells[0].nil? || cells[1].nil?
       puts "error: enter valid positions"
       return false
-    elsif pos1.piece.nil?
+    elsif cells[0].piece.nil?
       puts "error: starting position has no piece!"
       return false
-    elsif pos1.piece.color != @turn.color
+    elsif cells[0].piece.color != @turn.color
       puts "error: select friendly piece to move"
       return false
-    elsif pos2.piece != nil && pos2.piece.color == @turn.color
+    elsif cells[1].piece != nil && cells[1].piece.color == @turn.color
       puts "error: friendly piece at destination"
       return false
     else
@@ -55,22 +57,12 @@ class Game
   end
 
   #designed to take formatted input
-  def input_to_cells(formatted_input)
-    result = nil
-    if valid_input(formatted_input)
-      result = []
-      formatted_input.each { |pos| result << @board.cells[pos]}
-    end
-    result
-  end
-
-  #designed to take input as cells
   def valid_range(cells)
     return false if cells[0].nil? || cells[1].nil?
     cells[0].piece.in_range.include?(cells[1].pos)
   end
 
-  #designed to take input as cells
+  #designed to take formatted input
   def pos_difference(cells)
     x_diff = cells[1].pos[0].ord - cells[0].pos[0].ord
     y_diff = cells[1].pos[1] - cells[0].pos[1]
@@ -92,7 +84,7 @@ class Game
     result
   end
 
-  #designed to take input as cells (assumes previous tests have passed)
+  #designed to take formatted input (assumes previous tests have passed)
   def valid_path(cells)
     piece = cells[0].piece
     diff = pos_difference(cells)

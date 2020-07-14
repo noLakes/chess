@@ -88,38 +88,17 @@ describe Game do
       test.board['d', 2].piece = Pawn.new('W', ['d', 2])
       allow(test).to receive(:gets) { 'd2 d3' }
       expect(test.get_move).to be_kind_of(Array)
-      expect(test.get_move[0]).to eql(['d', 2])
+      expect(test.get_move[0]).to be_kind_of(Cell)
     end
 
   end
 
   describe "#format_input" do
-  
-    it "takes a string an returns an array with two items" do
-      test = subject.new.format_input('d3 d4')
-      expect(test).to be_kind_of(Array)
-      expect(test.length).to eql(2)
-    end
-
-    it "splits at spaces, then splits again at each character" do
-      test = subject.new.format_input('d3 d4')
-      expect(test[0].length).to eql(2)
-    end
-
-    it "converts string nums back to nums" do
-      test = subject.new.format_input('d3 d4')
-      expect(test[0][1]).to eql(3)
-      expect(test[1][1]).to eql(4)
-    end
-  end
-
-  describe "#input_to_cells" do
     let(:test) { subject.new }
 
-    it "takes formatted input and returns Array of matching Cells" do
+    it "takes input and returns Array of matching Cells" do
       test.board.setup_board
-      input = test.format_input("a2 a3")
-      cells = test.input_to_cells(input)
+      cells = test.format_input("a2 a3")
       expect(cells).to be_kind_of(Array)
       expect(cells[0]).to be_kind_of(Cell)
       expect(cells[1]).to be_kind_of(Cell)
@@ -128,26 +107,27 @@ describe Game do
 
   describe "#valid_input" do
     let(:test) { subject.new }
+    let(:board) { test.board }
 
     context "returns false" do
       
       it "when given a pos that does not exist" do
-        expect(test.valid_input([['a', 3], ['k', 1]])).to be_falsey
+        expect(test.valid_input([board['a', 3], board['k', 1]])).to be_falsey
       end
 
       it "when given a start pos that has no piece" do
-        expect(test.valid_input([['a', 2], ['a', 3]])).to be_falsey
+        expect(test.valid_input([board['a', 2], board['a', 3]])).to be_falsey
       end
 
       it "when given a start pos containing a piece not belonging to current player" do
-        test.board['c', 3].piece = Pawn.new('B', ['c', 3])
-        expect(test.valid_input([['c', 3], ['c', 4]])).to be_falsey
+        board['c', 3].piece = Pawn.new('B', ['c', 3])
+        expect(test.valid_input([board['c', 3], board['c', 4]])).to be_falsey
       end
 
       it "when given an end pos containing a piece of player color" do
-        test.board['c', 2].piece = Pawn.new('W', ['c', 2])
-        test.board['c', 3].piece = Knight.new('W', ['c', 3])
-        expect(test.valid_input([['c', 2], ['c', 3]])).to be_falsey
+        board['c', 2].piece = Pawn.new('W', ['c', 2])
+        board['c', 3].piece = Knight.new('W', ['c', 3])
+        expect(test.valid_input([board['c', 2], board['c', 3]])).to be_falsey
       end
 
     end
@@ -155,14 +135,14 @@ describe Game do
     context "returns true" do
       
       it "when given two real positions, the first having the only friendly piece" do
-        test.board.setup_board
-        expect(test.valid_input([['b', 2], ['b', 3]])).to be_truthy
+        board.setup_board
+        expect(test.valid_input([board['b', 2], board['b', 3]])).to be_truthy
       end
 
       it "when given two real positions, the first having friendly piece, the second hostile" do
-        test.board.setup_board
-        test.board['b', 3].piece = Bishop.new('B', ['b', 3])
-        expect(test.valid_input([['b', 2], ['b', 3]])).to be_truthy
+        board.setup_board
+        board['b', 3].piece = Bishop.new('B', ['b', 3])
+        expect(test.valid_input([board['b', 2], board['b', 3]])).to be_truthy
       end
     end
   end
@@ -248,6 +228,27 @@ describe Game do
 
     end
     
+  end
+
+  describe "#move" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    context "illegal moves" do
+
+      it "returns false" do
+
+      end
+
+    end
+
+    context "legal moves" do
+
+      it "re-assigns positions" do
+
+      end
+    end
+
   end
 
 end
