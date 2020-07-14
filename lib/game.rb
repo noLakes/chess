@@ -19,9 +19,16 @@ class Game
     loop do
       puts "enter your move (eg: a4 a7)"
       move = format_input(gets.chomp.to_s)
-      break if valid_input(move)
+      break if validate(move)
     end
     move
+  end
+
+  def validate(move)
+    return false unless valid_input(move)
+    return false unless valid_range(move)
+    return false unless valid_path(move)
+    return true
   end
 
   #converts input to pos arrays
