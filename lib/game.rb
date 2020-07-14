@@ -14,9 +14,12 @@ class Game
     @turn = @player[1]
   end
 
-  def get_move
-    puts "enter your move (eg: a4 a7)"
-    move = gets.chomp.to_s
+  def get_move(move = nil)
+    loop do
+      puts "enter your move (eg: a4 a7)"
+      move = move.nil? ? format_input(gets.chomp.to_s): format_input(move)
+      break if valid_input(move)
+    end
     move
   end
 

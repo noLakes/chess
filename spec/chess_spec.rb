@@ -78,7 +78,8 @@ describe Game do
     
     it "asks for input" do
       test = subject.new
-      expect(test).to receive(:gets) { 'd3 d4' }
+      test.board['d', 2].piece = Pawn.new('W', ['d', 2])
+      expect(test).to receive(:gets) { 'd2 d3' }
       test.get_move
     end
 
