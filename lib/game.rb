@@ -27,7 +27,12 @@ class Game
   def validate_move(move)
     return false unless valid_input(move)
     return false unless valid_range(move)
-    return false unless valid_path(move)
+    
+    if try_castling(move)
+      return false unless valid_castling(move)
+    else
+      return false unless valid_path(move)
+    end
     return true
   end
 
@@ -148,6 +153,7 @@ class Game
     threat
   end
 
+  #checks if you are trying to move a king 2 spaces
   def try_castling(cells, testing = false)
     if cells[0].piece.class != King
       return false
@@ -158,6 +164,7 @@ class Game
     end
   end
 
+  #checks all clauses for invalid castling
   def valid_castling(cells, testing = false)
     diff = pos_difference(cells)
     return false if diff[1] != 0

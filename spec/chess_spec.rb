@@ -302,6 +302,24 @@ describe Game do
       end
     end
 
+    context "when used inside of validate_move" do
+      before(:each) do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        board['a', 1].piece = Rook.new('W', ['a', 1])
+        board['h', 1].piece = Rook.new('W', ['h', 1])
+      end
+
+      it "returns true when true" do
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_truthy
+        expect(test.validate_move([board['e', 1], board['g', 1]])).to be_truthy
+      end
+
+      it "returns false when false" do
+        board['h', 1].piece = Knight.new('W', ['h', 1])
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_falsey
+        expect(test.validate_move([board['e', 1], board['g', 1]])).to be_falsey
+      end
+    end
   end
 
   describe "#valid_range" do
