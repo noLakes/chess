@@ -65,8 +65,16 @@ class Game
 
   #designed to take formatted input
   def valid_range(cells)
-    return false if cells[0].nil? || cells[1].nil?
-    cells[0].piece.in_range.include?(cells[1].pos)
+    if cells[0].nil? || cells[1].nil?
+      puts "error: enter valid positions"
+      return false
+    end
+    if cells[0].piece.in_range.include?(cells[1].pos)
+      return true
+    else
+      puts "#{cells[1].pos} not in-range for #{cells[0].piece.class} @ #{cells[0].pos}"
+      return false
+    end
   end
 
   #designed to take formatted input
