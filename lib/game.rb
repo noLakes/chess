@@ -132,4 +132,19 @@ class Game
     end
   end
 
+  def threat(threat_cell, color = @turn.color)
+    threat = false
+    @board.cells.each_pair do |pos, cell|
+      if cell.piece != nil && cell.piece.color != color
+        range = cell.piece.in_range.include?(threat_cell.pos)
+        next unless range
+        path = valid_path([cell, threat_cell], true)
+        next unless path
+        threat = true
+        break
+      end
+    end
+    threat
+  end
+
 end
