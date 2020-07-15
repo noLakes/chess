@@ -132,8 +132,12 @@ class Game
     cells[1].piece = cells[0].piece
     cells[1].piece.pos = cells[1].pos
     cells[0].piece = nil
-    if cells[1].piece.class == Rook || cells[1].piece.class == King || cells[1].piece.class == Pawn
-      cells[1].piece.moved_true
+    update_moved(cells[1].piece)
+  end
+
+  def update_moved(piece)
+    if piece.class == Rook || piece.class == King || piece.class == Pawn
+      piece.moved_true
     end
   end
 
