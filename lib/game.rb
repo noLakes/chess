@@ -132,6 +132,7 @@ class Game
     end
   end
 
+  #returns true if cell is under threat
   def threat(threat_cell, color = @turn.color)
     threat = false
     @board.cells.each_pair do |pos, cell|
