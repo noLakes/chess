@@ -116,6 +116,9 @@ class Game
       end
       read = @board.cells[alpha_add(read.pos, inc)]
     end
+    if result == false
+      puts "no path for #{cells[0].piece.class} #{cells[0].pos} ==> #{cells[1].pos}"
+    end
     result
   end
 
