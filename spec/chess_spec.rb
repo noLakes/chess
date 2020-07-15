@@ -184,18 +184,62 @@ describe Game do
     end
   end
 
-  describe "#castling_check" do
+  describe "#try_castling" do
     let(:test) { subject.new }
     let(:board) { test.board }
 
     context "when the entered move is considered castling" do
       
       it "returns true" do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        expect(test.try_castling([board['e', 1], board['c', 1]])).to be_truthy
+      end
+
+      it "returns true" do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        expect(test.try_castling([board['e', 1], board['g', 1]])).to be_truthy
+      end
+      
+      it "returns true" do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        expect(test.try_castling([board['e', 1], board['e', 3]])).to be_truthy
+      end
+
+    end
+
+    context "when the entered move is NOT considered castling" do
+      
+      it "returns false" do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        expect(test.try_castling([board['e', 1], board['e', 2]])).to be_falsey
+      end
+
+      it "returns false" do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        expect(test.try_castling([board['e', 1], board['f', 2]])).to be_falsey
+      end
+
+      it "returns false" do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        expect(test.try_castling([board['e', 1], board['e', 7]])).to be_falsey
+      end
+
+    end
+
+  end
+
+  describe "#castling_valid" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    context "when the castling attempt is valid" do
+      
+      it "returns true" do
         
       end
     end
 
-    context "when the entered move is NOT considered castling" do
+    context "when the castling attempt is invalid" do
       
       it "returns false" do
 
