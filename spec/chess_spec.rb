@@ -228,21 +228,68 @@ describe Game do
 
   end
 
-  describe "#castling_valid" do
+  describe "#valid_castling" do
     let(:test) { subject.new }
     let(:board) { test.board }
 
     context "when the castling attempt is valid" do
+      before(:each) do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        board['a', 1].piece = Rook.new('W', ['a', 1])
+        board['h', 1].piece = Rook.new('W', ['h', 1])
+      end
       
       it "returns true" do
-        
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_truthy
+      end
+
+      it "returns true" do
+        expect(test.valid_castling([board['e', 1], board['c', 1]])).to be_truthy
+      end
+
+      it "returns true" do
+        board['h', 8].piece = Queen.new('B', ['h', 8])
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_truthy
       end
     end
 
     context "when the castling attempt is invalid" do
+      before(:each) do
+        board['e', 1].piece = King.new('W', ['e', 1])
+        board['a', 1].piece = Rook.new('W', ['a', 1])
+        board['h', 1].piece = Rook.new('W', ['h', 1])
+      end
       
-      it "returns false" do
+      it "returns false when travel square is under threat" do
+        board['f', 8].piece = Rook.new('B', ['f', 8])
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_falsey
+      end
 
+      it "returns false when end square is under threat" do
+        board['g', 8].piece = Rook.new('B', ['g', 8])
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_falsey
+      end
+
+      it "returns false when squares between are not empty(short)" do
+        board['f', 1].piece = Bishop.new('W', ['f', 1])
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_falsey
+      end
+      
+      it "returns false when squares between are not empty(long)" do
+        board['b', 1].piece = Knight.new('W', ['b', 1])
+        expect(test.valid_castling([board['e', 1], board['c', 1]])).to be_falsey
+      end
+
+      it "returns false if either piece has moved (Rook)" do
+        test.move([board['h', 1], board['h', 2]])
+        test.move([board['h', 2], board['h', 1]])
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_falsey
+      end
+
+      it "returns false if either piece has moved (King)" do
+        test.move([board['e', 1], board['e', 2]])
+        test.move([board['e', 2], board['e', 1]])
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_falsey
       end
     end
 
