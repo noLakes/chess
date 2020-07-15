@@ -19,12 +19,12 @@ class Game
     loop do
       puts "enter your move (eg: a4 a7)"
       move = format_input(gets.chomp.to_s)
-      break if validate(move)
+      break if validate_move(move)
     end
     move
   end
 
-  def validate(move)
+  def validate_move(move)
     return false unless valid_input(move)
     return false unless valid_range(move)
     return false unless valid_path(move)
