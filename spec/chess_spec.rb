@@ -266,15 +266,19 @@ describe Game do
       expect(board['b', 8].piece).not_to eql(dummy_piece_2)
     end
 
-    it "changes moved status for King and Rook" do
+    it "changes moved status for King, Rook and Pawn" do
       dummy_piece_1 = Rook.new('W', ['a', 1])
       dummy_piece_2 = King.new('W', ['b', 1])
+      dummy_piece_3 = Pawn.new('W', ['c', 2])
       board['a', 1].piece = dummy_piece_1
       board['b', 1].piece = dummy_piece_2
+      board['c', 2].piece = dummy_piece_3
       test.move(test.format_input("a1 a2"))
       test.move(test.format_input("b1 b2"))
+      test.move(test.format_input("c2 c3"))
       expect(dummy_piece_1.moved).to be_truthy
       expect(dummy_piece_2.moved).to be_truthy
+      expect(dummy_piece_3.moved).to be_truthy
     end
 
     it "updates position data for piece" do
