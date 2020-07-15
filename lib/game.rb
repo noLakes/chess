@@ -148,4 +148,14 @@ class Game
     threat
   end
 
+  def try_castling(cells, testing = false)
+    if cells[0].piece.class != King
+      return false
+    elsif !pos_difference(cells).include?(2) && !pos_difference(cells).include?(-2)
+      return false
+    else
+      return true
+    end
+  end
+
 end
