@@ -149,6 +149,41 @@ describe Game do
     end
   end
 
+  describe "#threat" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    context "when enemy pieces have a path to the pos" do
+
+      it "returns true" do
+        board['a', 1].piece = Rook.new('B', ['a', 1])
+        board['h', 2].piece = Bishop.new('B', ['h', 2])
+        expect(test.threat(['b', 8])).to be_truthy
+      end
+
+      it "returns true" do
+        board['d', 1].piece = Rook.new('B', ['d', 1])
+        board['c', 1].piece = Knight.new('B', ['c', 1])
+        expect(test.threat(['e', 2])).to be_truthy
+      end
+    end
+
+    context "when enemy pieces do NOT have a path to the pos" do
+
+      it "returns false" do
+        board['d', 1].piece = Rook.new('B', ['d', 1])
+        board['c', 1].piece = Knight.new('B', ['c', 1])
+        expect(test.threat(['c', 3])).to be_falsey
+      end
+
+      it "returns false" do
+        board['a', 1].piece = Rook.new('B', ['a', 1])
+        board['h', 2].piece = Bishop.new('B', ['h', 2])
+        expect(test.threat(['b', 7])).to be_falsey
+      end
+    end
+  end
+
   describe "#castling_check" do
     let(:test) { subject.new }
     let(:board) { test.board }
