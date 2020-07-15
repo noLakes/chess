@@ -158,4 +158,36 @@ class Game
     end
   end
 
+  def valid_castling(cells, testing = false)
+    diff = pos_difference(cells)
+    return false if diff[1] != 0
+
+    rook = nil
+    king = cells[0].piece
+    return false if king.moved
+
+    if king.color == 'W'
+      rook = diff[0] == 2 ? @board['h', 1].piece : @board['a', 1].piece
+    elsif king.color == 'B'
+      rook = diff[0] == 2 ? @board['h', 8].piece : @board['a', 8].piece
+    end
+    
+    return false if rook.class != Rook
+    return false if rook.moved
+
+    path = [cells[0], @board.cells[rook.pos]]
+    inc = diff_to_inc(diff)
+    
+    read = path[0]
+    i = 1
+    loop do
+      read = @board.cells[alpha_add(read.pos, inc)]
+      break if read == path[1]
+      return false if !read.piece.nil?
+      return false if i < 3 && threat(read)
+      i += 1 
+    end
+    true
+  end
+
 end

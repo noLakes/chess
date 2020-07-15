@@ -259,6 +259,15 @@ describe Game do
         board['a', 1].piece = Rook.new('W', ['a', 1])
         board['h', 1].piece = Rook.new('W', ['h', 1])
       end
+
+      it "returns false if you are trying to move vertically" do
+        expect(test.valid_castling([board['e', 1], board['e', 3]])).to be_falsey
+      end
+
+      it "returns false if there is no Rook in the movement direction" do
+        board['h', 1].piece = nil
+        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_falsey
+      end
       
       it "returns false when travel square is under threat" do
         board['f', 8].piece = Rook.new('B', ['f', 8])
