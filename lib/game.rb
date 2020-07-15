@@ -114,7 +114,11 @@ class Game
   #designed to take formatted input (assumes move is valid)
   def move(cells)
     cells[1].piece = cells[0].piece
+    cells[1].piece.pos = cells[1].pos
     cells[0].piece = nil
+    if cells[1].piece.class == Rook || cells[1].piece.class == King
+      cells[1].piece.moved_true
+    end
   end
 
 end
