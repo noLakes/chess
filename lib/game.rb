@@ -45,9 +45,9 @@ class Game
   end
 
   #designed to take formatted input
-  def valid_input(cells)
+  def valid_input(cells, testing = false)
     if cells[0].nil? || cells[1].nil?
-      puts "error: enter valid positions"
+      puts "error: enter valid positions" if !testing
       return false
     elsif cells[0].piece.nil?
       puts "error: starting position has no piece!"
@@ -64,15 +64,15 @@ class Game
   end
 
   #designed to take formatted input
-  def valid_range(cells)
+  def valid_range(cells, testing = false)
     if cells[0].nil? || cells[1].nil?
-      puts "error: enter valid positions"
+      puts "error: enter valid positions" if !testing
       return false
     end
     if cells[0].piece.in_range.include?(cells[1].pos)
       return true
     else
-      puts "#{cells[1].pos} not in-range for #{cells[0].piece.class} @ #{cells[0].pos}"
+      puts "#{cells[1].pos} not in-range for #{cells[0].piece.class} @ #{cells[0].pos}" if !testing
       return false
     end
   end
@@ -100,7 +100,7 @@ class Game
   end
 
   #designed to take formatted input
-  def valid_path(cells)
+  def valid_path(cells, testing = false)
     piece = cells[0].piece
     diff = pos_difference(cells)
     
@@ -117,7 +117,7 @@ class Game
       read = @board.cells[alpha_add(read.pos, inc)]
     end
     if result == false
-      puts "no path for #{cells[0].piece.class} #{cells[0].pos} ==> #{cells[1].pos}"
+      puts "no path for #{cells[0].piece.class} #{cells[0].pos} ==> #{cells[1].pos}" if !testing
     end
     result
   end

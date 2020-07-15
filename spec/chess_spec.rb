@@ -149,6 +149,26 @@ describe Game do
     end
   end
 
+  describe "#castling_check" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    context "when the entered move is considered castling" do
+      
+      it "returns true" do
+        
+      end
+    end
+
+    context "when the entered move is NOT considered castling" do
+      
+      it "returns false" do
+
+      end
+    end
+
+  end
+
   describe "#valid_range" do
     let(:test) { subject.new }
     let(:board) { test.board }
