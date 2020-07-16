@@ -132,6 +132,7 @@ class Game
     cells[1].piece = cells[0].piece
     cells[1].piece.pos = cells[1].pos
     cells[0].piece = nil
+    perform_castling(cells[1]) if try_castling(cells)
     update_moved(cells[1].piece)
   end
 

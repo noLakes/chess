@@ -322,6 +322,46 @@ describe Game do
     end
   end
 
+  describe "#perform_castling" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    context "white" do
+      
+      it "moves castle for short" do
+        board['g', 1].piece = King.new('W', ['g', 1])
+        board['h', 1].piece = Rook.new('W', ['h', 1])
+        test.perform_castling(board['g', 1])
+        expect(board['f', 1].piece).to be_kind_of(Rook)
+      end
+
+      it "moves castle for long" do
+        board['c', 1].piece = King.new('W', ['c', 1])
+        board['a', 1].piece = Rook.new('W', ['a', 1])
+        test.perform_castling(board['c', 1])
+        expect(board['d', 1].piece).to be_kind_of(Rook)
+      end
+    end
+
+    context "black" do
+
+      it "moves castle for short" do
+        board['g', 8].piece = King.new('B', ['g', 8])
+        board['h', 8].piece = Rook.new('B', ['h', 8])
+        test.perform_castling(board['g', 8])
+        expect(board['f', 8].piece).to be_kind_of(Rook)
+      end
+
+      it "moves castle for long" do
+        board['c', 8].piece = King.new('B', ['c', 8])
+        board['a', 8].piece = Rook.new('B', ['a', 8])
+        test.perform_castling(board['g', 8])
+        expect(board['d', 8].piece).to be_kind_of(Rook)
+      end
+
+    end
+  end
+
   describe "#valid_range" do
     let(:test) { subject.new }
     let(:board) { test.board }
