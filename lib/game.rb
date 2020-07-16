@@ -202,4 +202,17 @@ class Game
     true
   end
 
+  def perform_castling(king_cell)
+    case king_cell.pos
+    when ['g', 1]
+      move([@board['h', 1], @board['f', 1]])
+    when ['c', 1]
+      move([@board['a', 1], @board['d', 1]])
+    when ['g', 8]
+      move([@board['h', 8], @board['f', 8]])
+    when ['c', 8]
+      move([@board['a', 8], @board['d', 8]])
+    end
+  end
+
 end

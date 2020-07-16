@@ -355,7 +355,7 @@ describe Game do
       it "moves castle for long" do
         board['c', 8].piece = King.new('B', ['c', 8])
         board['a', 8].piece = Rook.new('B', ['a', 8])
-        test.perform_castling(board['g', 8])
+        test.perform_castling(board['c', 8])
         expect(board['d', 8].piece).to be_kind_of(Rook)
       end
 
