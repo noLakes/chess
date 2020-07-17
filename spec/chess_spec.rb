@@ -1080,12 +1080,12 @@ describe Pawn do
     
     it "has an instance variable for movement increments (array length > 0)" do
       expect(subject.increments).to be_kind_of(Array)
-      expect(subject.increments.length).to eql(4)
+      expect(subject.increments.length).to eql(8)
     end
 
     it "has an instance variable for range" do
       expect(subject.range).to be_kind_of(Array)
-      expect(subject.range.length).to eql(4)
+      expect(subject.range.length).to eql(8)
     end
 
     it "has an instance variable for in_range (default empty array)" do
