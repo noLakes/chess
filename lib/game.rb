@@ -133,12 +133,15 @@ class Game
     cells[1].piece.pos = cells[1].pos
     cells[0].piece = nil
     perform_castling(cells[1]) if try_castling(cells)
-    update_moved(cells[1].piece)
+    update_moved(cells[1].piece, cells)
   end
 
-  def update_moved(piece)
-    if piece.class == Rook || piece.class == King || piece.class == Pawn
+  def update_moved(piece, cells)
+    if [Rook, King, Pawn].include?(piece.class)
       piece.moved_true
+      if piece.class == Pawn
+        piece.last_move = pos_difference(cells)
+      end
     end
   end
 

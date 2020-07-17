@@ -501,6 +501,12 @@ describe Game do
       expect(dummy_piece_1.pos).to eql(['a', 2])
     end
 
+    it "updates last move increment for pawn" do
+      board['a', 2].piece = Pawn.new('W', ['a', 2])
+      test.move([board['a', 2], board['a', 4]])
+      expect(board['a', 4].piece.last_move).to eql([0, 2])
+    end
+
   end
 
 end
