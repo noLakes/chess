@@ -509,6 +509,23 @@ describe Game do
 
   end
 
+  describe "#moving_pawn" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns true when moving a pawn" do
+      board['a', 2].piece = Pawn.new('W', ['a', 2])
+      move = [board['a', 2], board['a', 3]]
+      expect(test.moving_pawn(move)).to be_truthy
+    end
+
+    it "returns false when moving another piece" do
+      board['a', 2].piece = Rook.new('W', ['a', 2])
+      move = [board['a', 2], board['a', 3]]
+      expect(test.moving_pawn(move)).to be_falsey
+    end
+
+  end
 end
 
 describe Player do

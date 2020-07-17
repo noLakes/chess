@@ -218,4 +218,8 @@ class Game
     end
   end
 
+  def moving_pawn(cells)
+    cells[0].piece.class == Pawn
+  end
+
 end
