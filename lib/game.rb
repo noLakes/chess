@@ -222,24 +222,29 @@ class Game
     cells[0].piece.class == Pawn
   end
 
+  #checks if you are trying to double step
   def try_double_step(cells) 
     diff = pos_difference(cells)
     [[0, 2], [0, -2]].include?(diff)
   end
 
+  #checks if your double step attempt is valid
   def valid_double_step(cells)
     cells[0].piece.moved == false
   end
 
+  #checks if you are trying to move a pawn diagonally
   def try_diagonal(cells)
     diff = pos_difference(cells)
     [[1, 1], [-1, 1], [-1, -1], [1, -1]].include?(diff)
   end
 
+  #checks if you are trying a diagonal capture
   def diagonal_capture(cells)
     !cells[1].piece.nil? && cells[0].piece.color != cells[1].piece.color
   end
 
+  #checks if you are trying en_passant
   def en_passant(cells)
     if cells[0].piece.color == 'W'
       target = @board.cells[alpha_add(cells[1].pos, [0, -1])].piece
@@ -249,5 +254,14 @@ class Game
       return false unless target.class == Pawn && target.color == 'W' && target.last_move == [0, 2]
     end
     true
+  end
+
+  def perform_en_passant(cells)
+    color = cells[0].piece.color
+    if color == 'W'
+      @board.cells[alpha_add(cells[1].pos, [0, -1])].piece = nil
+    elsif color == 'B'
+      target = @board.cells[alpha_add(cells[1].pos, [0, 1])].piece = nil
+    end
   end
 end
