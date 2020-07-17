@@ -139,6 +139,11 @@ class Game
 
   #designed to take formatted input (assumes move is valid)
   def move(cells)
+    
+    if moving_pawn(cells) && en_passant(cells)
+      perform_en_passant(cells)
+    end
+    
     cells[1].piece = cells[0].piece
     cells[1].piece.pos = cells[1].pos
     cells[0].piece = nil

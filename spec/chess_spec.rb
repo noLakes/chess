@@ -507,6 +507,22 @@ describe Game do
       expect(board['a', 4].piece.last_move).to eql([0, 2])
     end
 
+    it "performs en_passant piece taking (white left)" do
+      board['c', 7].piece = Pawn.new('B', ['c', 7])
+      test.move([board['c', 7], board['c', 5]])
+      board['d', 5].piece = Pawn.new('W', ['d', 5])
+      test.move([board['d', 5], board['c', 6]])
+      expect(board['c', 5].piece).to be_nil
+    end
+
+    it "performs en_passant piece taking (black right)" do
+      board['c', 2].piece = Pawn.new('W', ['c', 2])
+      test.move([board['c', 2], board['c', 4]])
+      board['b', 4].piece = Pawn.new('B', ['b', 4])
+      test.move([board['b', 4], board['c', 3]])
+      expect(board['c', 4].piece).to be_nil
+    end
+
   end
 
   describe "#moving_pawn" do
