@@ -24,15 +24,25 @@ class Game
     move
   end
 
+  #big logic gate to validate all types of move
   def validate_move(move)
     return false unless valid_input(move)
     return false unless valid_range(move)
     
+    if moving_pawn(move)
+      if try_double_step(move)
+        return false unless valid_double_step(move)
+      end
+      if try_diagonal(move)
+        return false unless diagonal_capture(move) || en_passant(move)
+      end
+    end
+
     if try_castling(move)
       return false unless valid_castling(move)
-    else
-      return false unless valid_path(move)
     end
+
+    return false unless valid_path(move)
     return true
   end
 
