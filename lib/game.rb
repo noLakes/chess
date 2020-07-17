@@ -222,4 +222,9 @@ class Game
     cells[0].piece.class == Pawn
   end
 
+  def try_double_step(cells) 
+    diff = pos_difference(cells)
+    [[0, 2], [0, -2]].include?(diff)
+  end
+
 end

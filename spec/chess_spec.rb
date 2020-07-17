@@ -526,6 +526,29 @@ describe Game do
     end
 
   end
+
+  describe "#try_double_step" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns true for double step moves" do
+      board['a', 2].piece = Pawn.new('W', ['a', 2])
+      move = [board['a', 2], board['a', 4]]
+      expect(test.try_double_step(move)).to be_truthy
+    end
+
+    it "returns true for black double step moves" do
+      board['a', 7].piece = Pawn.new('W', ['a', 7])
+      move = [board['a', 7], board['a', 5]]
+      expect(test.try_double_step(move)).to be_truthy
+    end
+
+    it "returns false for non double step moves" do
+      board['a', 2].piece = Pawn.new('W', ['a', 2])
+      move = [board['a', 2], board['a', 3]]
+      expect(test.try_double_step(move)).to be_falsey
+    end
+  end
 end
 
 describe Player do
