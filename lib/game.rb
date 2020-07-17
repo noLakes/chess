@@ -231,4 +231,9 @@ class Game
     cells[0].piece.moved == false
   end
 
+  def try_diagonal(cells)
+    diff = pos_difference(cells)
+    [[1, 1], [-1, 1], [-1, -1], [1, -1]].include?(diff)
+  end
+
 end

@@ -566,6 +566,41 @@ describe Game do
       expect(test.valid_double_step(dummy_move)).to be_falsey
     end
   end
+
+  describe "#try_diagonal" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns true for diagonal moves (right)" do
+      board['a', 2].piece = Pawn.new('W', ['a', 2])
+      move = [board['a', 2], board['b', 3]]
+      expect(test.try_diagonal(move)).to be_truthy
+    end
+
+    it "returns true for diagonal moves (left)" do
+      board['b', 2].piece = Pawn.new('W', ['b', 2])
+      move = [board['b', 2], board['a', 3]]
+      expect(test.try_diagonal(move)).to be_truthy
+    end
+
+    it "returns true for black diagonal moves (left)" do
+      board['a', 7].piece = Pawn.new('W', ['a', 7])
+      move = [board['a', 7], board['b', 6]]
+      expect(test.try_diagonal(move)).to be_truthy
+    end
+
+    it "returns true for black diagonal moves (right)" do
+      board['b', 7].piece = Pawn.new('W', ['b', 7])
+      move = [board['b', 7], board['a', 6]]
+      expect(test.try_diagonal(move)).to be_truthy
+    end
+
+    it "returns false for non diagonal moves" do
+      board['a', 2].piece = Pawn.new('W', ['a', 2])
+      move = [board['a', 2], board['a', 3]]
+      expect(test.try_diagonal(move)).to be_falsey
+    end
+  end
 end
 
 describe Player do
