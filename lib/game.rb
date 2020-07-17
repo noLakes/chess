@@ -2,6 +2,7 @@ require_relative 'cell'
 require_relative 'board'
 require_relative 'chess_methods'
 require_relative 'player'
+require 'pry'
 Dir["/pieces/*"].each {|file| require file }
 
 class Game
@@ -143,11 +144,15 @@ class Game
     if moving_pawn(cells) && en_passant(cells)
       perform_en_passant(cells)
     end
-    
+
+    if try_castling(cells) && valid_castling(cells)
+      perform_castling(cells[1])
+    end
+
     cells[1].piece = cells[0].piece
     cells[1].piece.pos = cells[1].pos
     cells[0].piece = nil
-    perform_castling(cells[1]) if try_castling(cells)
+
     update_moved(cells[1].piece, cells)
   end
 
@@ -201,6 +206,7 @@ class Game
     elsif king.color == 'B'
       rook = diff[0] == 2 ? @board['h', 8].piece : @board['a', 8].piece
     end
+
     
     return false if rook.class != Rook
     return false if rook.moved
@@ -214,7 +220,7 @@ class Game
       read = @board.cells[alpha_add(read.pos, inc)]
       break if read == path[1]
       return false if !read.piece.nil?
-      return false if i < 3 && threat(read)
+      return false if i < 3 && threat(read, king.color)
       i += 1 
     end
     true

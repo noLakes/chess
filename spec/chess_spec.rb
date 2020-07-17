@@ -199,6 +199,16 @@ describe Game do
         board['e', 1].piece = King.new('W', ['e', 1])
         expect(test.try_castling([board['e', 1], board['g', 1]])).to be_truthy
       end
+
+      it "returns true (black)" do
+        board['e', 8].piece = King.new('B', ['e', 8])
+        expect(test.try_castling([board['e', 8], board['g', 8]])).to be_truthy
+      end
+
+      it "returns true (black)" do
+        board['e', 8].piece = King.new('B', ['e', 8])
+        expect(test.try_castling([board['e', 8], board['c', 8]])).to be_truthy
+      end
       
       it "returns true" do
         board['e', 1].piece = King.new('W', ['e', 1])
@@ -237,6 +247,9 @@ describe Game do
         board['e', 1].piece = King.new('W', ['e', 1])
         board['a', 1].piece = Rook.new('W', ['a', 1])
         board['h', 1].piece = Rook.new('W', ['h', 1])
+        board['e', 8].piece = King.new('B', ['e', 8])
+        board['a', 8].piece = Rook.new('B', ['a', 8])
+        board['h', 8].piece = Rook.new('B', ['h', 8])
       end
       
       it "returns true" do
@@ -247,10 +260,14 @@ describe Game do
         expect(test.valid_castling([board['e', 1], board['c', 1]])).to be_truthy
       end
 
-      it "returns true" do
-        board['h', 8].piece = Queen.new('B', ['h', 8])
-        expect(test.valid_castling([board['e', 1], board['g', 1]])).to be_truthy
+      it "returns true (black)" do
+        expect(test.valid_castling([board['e', 8], board['g', 8]])).to be_truthy
       end
+
+      it "returns true (black)" do
+        expect(test.valid_castling([board['e', 8], board['c', 8]])).to be_truthy
+      end
+      
     end
 
     context "when the castling attempt is invalid" do
@@ -521,6 +538,22 @@ describe Game do
       board['b', 4].piece = Pawn.new('B', ['b', 4])
       test.move([board['b', 4], board['c', 3]])
       expect(board['c', 4].piece).to be_nil
+    end
+
+    it "performs castling (white short)" do
+      board['e', 1].piece = King.new('W', ['e', 1])
+      board['h', 1].piece = Rook.new('W', ['h', 1])
+      test.move([board['e', 1], board['g', 1]])
+      expect(board['f', 1].piece).to be_kind_of(Rook)
+      expect(board['h', 1].piece).to be_nil
+    end
+
+    it "performs castling (black long)" do
+      board['e', 8].piece = King.new('B', ['e', 8])
+      board['a', 8].piece = Rook.new('B', ['a', 8])
+      test.move([board['e', 8], board['c', 8]])
+      expect(board['d', 8].piece).to be_kind_of(Rook)
+      expect(board['a', 8].piece).to be_nil
     end
 
   end
