@@ -236,4 +236,18 @@ class Game
     [[1, 1], [-1, 1], [-1, -1], [1, -1]].include?(diff)
   end
 
+  def diagonal_capture(cells)
+    !cells[1].piece.nil? && cells[0].piece.color != cells[1].piece.color
+  end
+
+  def en_passant(cells)
+    if cells[0].piece.color == 'W'
+      target = @board.cells[alpha_add(cells[1].pos, [0, -1])].piece
+      return false unless target.class == Pawn && target.color == 'B' && target.last_move == [0, -2]
+    elsif cells[0].piece.color == 'B'
+      target = @board.cells[alpha_add(cells[1].pos, [0, 1])].piece
+      return false unless target.class == Pawn && target.color == 'W' && target.last_move == [0, 2]
+    end
+    true
+  end
 end

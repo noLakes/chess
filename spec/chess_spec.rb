@@ -601,6 +601,49 @@ describe Game do
       expect(test.try_diagonal(move)).to be_falsey
     end
   end
+  
+  describe "#diagonal_capture" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns true when taking a piece(white left)" do
+      board['c', 2].piece = Pawn.new('W', ['c', 2])
+      board['b', 3].piece = Queen.new('B', ['b', 3])
+      expect(test.diagonal_capture([board['c', 2], board['b', 3]])).to be_truthy
+    end
+
+    it "returns true when taking a piece(black right)" do
+      board['c', 7].piece = Pawn.new('B', ['c', 7])
+      board['d', 6].piece = Queen.new('W', ['d', 6])
+      expect(test.diagonal_capture([board['c', 7], board['d', 6]])).to be_truthy
+    end
+
+    it "returns false for an empty non-passant space" do
+      board['b', 3].piece = Rook.new('B', ['b', 3])
+      test.move([board['b', 3], board['b', 1]])
+      board['a', 1].piece = Pawn.new('W', ['a', 1])
+      expect(test.diagonal_capture([board['a', 1], board['a', 2]])).to be_falsey
+    end
+  end
+
+  describe "en_passant" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns true for en-passant (white left)" do
+      board['c', 7].piece = Pawn.new('B', ['c', 7])
+      test.move([board['c', 7], board['c', 5]])
+      board['d', 5].piece = Pawn.new('W', ['d', 5])
+      expect(test.en_passant([board['d', 5], board['c', 6]])).to be_truthy
+    end
+
+    it "returns true for en-passant (black right)" do
+      board['d', 2].piece = Pawn.new('W', ['d', 2])
+      test.move([board['d', 2], board['d', 4]])
+      board['c', 4].piece = Pawn.new('B', ['c', 4])
+      expect(test.en_passant([board['c', 4], board['d', 3]])).to be_truthy
+    end
+  end
 end
 
 describe Player do
