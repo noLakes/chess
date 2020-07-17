@@ -227,4 +227,8 @@ class Game
     [[0, 2], [0, -2]].include?(diff)
   end
 
+  def valid_double_step(cells)
+    cells[0].piece.moved == false
+  end
+
 end

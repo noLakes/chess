@@ -549,6 +549,23 @@ describe Game do
       expect(test.try_double_step(move)).to be_falsey
     end
   end
+
+  describe "#valid_double_step" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+    let(:dummy_move) { [board['a', 2], board['a', 4]] }
+    before(:each) { board['a', 2].piece = Pawn.new('W', ['a', 2])}
+
+    it "returns true if the pawn has not moved yet" do
+      expect(test.valid_double_step(dummy_move)).to be_truthy
+    end
+
+    it "returns false if the pawn has moved" do
+      test.move([board['a', 2], board['a', 3]])
+      test.move([board['a', 3], board['a', 2]])
+      expect(test.valid_double_step(dummy_move)).to be_falsey
+    end
+  end
 end
 
 describe Player do
