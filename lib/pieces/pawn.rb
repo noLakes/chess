@@ -11,17 +11,17 @@ class Pawn
     @txt = @color == 'W' ? "\u2659" : "\u265F"
     @moved = false
     @last_move = nil
-    @increments = [[0, 1], [0, 2], [-1, 1], [1, 1],
-    [0, -1], [0, -2], [-1, -1], [1, -1]].freeze
-    @range = [[0, 1], [0, 2], [-1, 1], [1, 1],
-    [0, -1], [0, -2], [-1, -1], [1, -1]].freeze
-    @in_range = @pos.nil? ? [] : get_in_range(@pos, @range)
+    @increments = { 'W' => [[0, 1], [0, 2], [-1, 1], [1, 1]],
+      'B' => [[0, -1], [0, -2], [-1, -1], [1, -1]] }.freeze
+    @range = { 'W' => [[0, 1], [0, 2], [-1, 1], [1, 1]],
+      'B' => [[0, -1], [0, -2], [-1, -1], [1, -1]] }.freeze
+    @in_range = @pos.nil? ? [] : get_in_range(@pos, @range[@color])
   end
 
   def pos=(new_pos)
     return nil unless in_board(new_pos)
     @pos = new_pos
-    @in_range = get_in_range(@pos, @range)
+    @in_range = get_in_range(@pos, @range[@color])
   end
 
   def moved_true

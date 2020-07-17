@@ -1078,14 +1078,19 @@ describe Pawn do
       expect(subject.pos).to be_nil
     end
     
-    it "has an instance variable for movement increments (array length > 0)" do
-      expect(subject.increments).to be_kind_of(Array)
-      expect(subject.increments.length).to eql(8)
+    it "has an instance variable for movement increments (hash length > 0)" do
+      expect(subject.increments).to be_kind_of(Hash)
+      expect(subject.increments.length).to eql(2)
+    end
+
+    it "has seperate increments for white and black" do
+      expect(subject.increments.keys).to include('W')
+      expect(subject.increments.keys).to include('B')
     end
 
     it "has an instance variable for range" do
-      expect(subject.range).to be_kind_of(Array)
-      expect(subject.range.length).to eql(8)
+      expect(subject.range).to be_kind_of(Hash)
+      expect(subject.range.length).to eql(2)
     end
 
     it "has an instance variable for in_range (default empty array)" do
