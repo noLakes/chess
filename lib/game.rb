@@ -300,6 +300,7 @@ class Game
     king
   end
 
+  #returns array of formatted valid moves for given color
   def valid_moves(color)
     moves = []
     @board.cells.each_value do |cell|
