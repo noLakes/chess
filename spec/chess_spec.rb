@@ -267,7 +267,7 @@ describe Game do
       it "returns true (black)" do
         expect(test.valid_castling([board['e', 8], board['c', 8]])).to be_truthy
       end
-      
+
     end
 
     context "when the castling attempt is invalid" do
@@ -693,7 +693,60 @@ describe Game do
       expect(test.en_passant([board['c', 4], board['d', 3]])).to be_truthy
     end
   end
+
+  describe "#get_king" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+    before(:each) { board.setup_board }
+
+    it "returns a reference to the specified king (white)" do
+      king = test.get_king('W')
+      expect(king.color).to eql('W')
+      expect(king.pos).to eql(['e', 1])
+      expect(king).to be_kind_of(King)
+    end
+
+    it "returns a reference to the specified king (black)" do
+      king = test.get_king('B')
+      expect(king.color).to eql('B')
+      expect(king.pos).to eql(['e', 8])
+      expect(king).to be_kind_of(King)
+    end
+
+    it "returns a reference to the specified king not in start pos (white)" do
+      test.move([board['e', 1], board['e', 4]])
+      king = test.get_king('W')
+      expect(king.color).to eql('W')
+      expect(king.pos).to eql(['e', 4])
+      expect(king).to be_kind_of(King)
+    end
+
+    it "returns a reference to the specified king not in start pos (black)" do
+      test.move([board['e', 8], board['e', 5]])
+      king = test.get_king('B')
+      expect(king.color).to eql('B')
+      expect(king.pos).to eql(['e', 5])
+      expect(king).to be_kind_of(King)
+    end
+
+  end
+
+  describe "#check" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    context "when in check" do
+
+    end
+
+    context "when NOT in check" do
+
+    end
+
+  end
+
 end
+
 
 describe Player do
   

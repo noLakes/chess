@@ -285,4 +285,15 @@ class Game
       target = @board.cells[alpha_add(cells[1].pos, [0, 1])].piece = nil
     end
   end
+
+  def get_king(color)
+    king = nil
+    @board.cells.each_value do |cell|
+      if !cell.piece.nil? && cell.piece.color == color && cell.piece.class == King
+        king = cell.piece
+        break
+      end
+    end
+    king
+  end
 end
