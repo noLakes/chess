@@ -745,6 +745,17 @@ describe Game do
 
   end
 
+  describe "#valid_moves" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns valid moves (white c2 pawn start)" do
+      board.setup_board
+      moves = test.valid_moves('W').filter { |mov| mov[0].pos == ['c', 2] }
+      expect(moves.length).to eql(2)
+    end
+
+  end
 end
 
 

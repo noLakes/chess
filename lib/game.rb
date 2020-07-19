@@ -2,7 +2,8 @@ require_relative 'cell'
 require_relative 'board'
 require_relative 'chess_methods'
 require_relative 'player'
-require 'pry'
+
+
 Dir["/pieces/*"].each {|file| require file }
 
 class Game
@@ -26,9 +27,9 @@ class Game
   end
 
   #big logic gate to validate all types of move
-  def validate_move(move)
-    return false unless valid_input(move)
-    return false unless valid_range(move)
+  def validate_move(move, testing = false)
+    return false unless valid_input(move, testing)
+    return false unless valid_range(move, testing)
     
     if moving_pawn(move)
       if try_double_step(move)
@@ -43,7 +44,7 @@ class Game
       return false unless valid_castling(move)
     end
 
-    return false unless valid_path(move)
+    return false unless valid_path(move, testing)
     return true
   end
 
@@ -66,13 +67,13 @@ class Game
       puts "error: enter valid positions" if !testing
       return false
     elsif cells[0].piece.nil?
-      puts "error: starting position has no piece!"
+      puts "error: starting position has no piece!" if !testing
       return false
     elsif cells[0].piece.color != @turn.color
-      puts "error: select friendly piece to move"
+      puts "error: select friendly piece to move" if !testing
       return false
     elsif cells[1].piece != nil && cells[1].piece.color == @turn.color
-      puts "error: friendly piece at destination"
+      puts "error: friendly piece at destination" if !testing
       return false
     else
       return true
@@ -295,5 +296,18 @@ class Game
       end
     end
     king
+  end
+
+  def valid_moves(color)
+    moves = []
+    @board.cells.each_value do |cell|
+      if !cell.piece.nil? && cell.piece.color == color
+        cell.piece.in_range.each do |pos2|
+          move = [cell, @board.cells[pos2]]
+          moves << move if validate_move(move, true)
+        end
+      end
+    end
+    moves.length == 0 ? nil : moves
   end
 end
