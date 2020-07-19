@@ -755,6 +755,22 @@ describe Game do
       expect(moves.length).to eql(2)
     end
 
+    it "returns valid moves (black custom board)" do
+      test.turn = test.player[2]
+      board['b', 5].piece = Rook.new('B', ['b', 5])
+      board['c', 5].piece = Pawn.new('B', ['c', 5])
+      moves = test.valid_moves('B').filter { |mov| mov[0].pos == ['b', 5] }
+      expect(moves.length).to eql(8)
+    end
+
+    it "returns valid moves (white custom castling)" do
+      board['e', 1].piece = King.new('W', ['e', 1])
+      board['a', 1].piece = Rook.new('W', ['a', 1])
+      board['h', 1].piece = Rook.new('W', ['h', 1])
+      moves = test.valid_moves('W').filter { |mov| mov[0].pos == ['e', 1] }
+      expect(moves.length).to eql(7)
+    end
+
   end
 end
 

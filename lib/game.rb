@@ -2,13 +2,15 @@ require_relative 'cell'
 require_relative 'board'
 require_relative 'chess_methods'
 require_relative 'player'
+require 'pry'
 
 
 Dir["/pieces/*"].each {|file| require file }
 
 class Game
   include Chess_methods
-  attr_reader :board, :player, :turn
+  attr_reader :board, :player
+  attr_accessor :turn
 
   def initialize
     @board = Board.new
