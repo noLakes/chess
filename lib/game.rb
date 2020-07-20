@@ -352,14 +352,14 @@ class Game
     Marshal.load(serial)
   end
 
-  def sim_check(cells)
+  def sim_check(cells, testing = false)
     color = cells[0].piece.color
     sim = sim_game
     board = sim.board
-    #binding.pry
     sim.move([board.cells[cells[0].pos], board.cells[cells[1].pos]])
-    #binding.pry
-    sim.check(color)
+    result = sim.check(color)
+    puts "#{cells[0].pos} => #{cells[1].pos} would put you in check!" if !testing
+    result
   end
 
 end

@@ -879,14 +879,14 @@ describe Game do
       board['e', 1].piece = King.new('W', ['e', 1])
       board['f', 8].piece = Rook.new('B', ['f', 8])
       move = [board['e', 1], board['f', 1]]
-      expect(test.sim_check(move)).to be_truthy
+      expect(test.sim_check(move, true)).to be_truthy
     end
 
     it "returns false if sim not in check" do
       board['e', 1].piece = King.new('W', ['e', 1])
       board['g', 8].piece = Rook.new('B', ['g', 8])
       move = [board['e', 1], board['f', 1]]
-      expect(test.sim_check(move)).to be_falsey
+      expect(test.sim_check(move, true)).to be_falsey
     end
 
   end
