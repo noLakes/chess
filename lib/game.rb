@@ -330,4 +330,21 @@ class Game
     end
   end
 
+  def promote(cell)
+    return nil if cell.piece.class != Pawn
+    types = { 'queen' => Queen, 'king' => King, 'knight' => Knight,
+      'rook' => Rook, 'bishop' => Bishop }
+    input = nil
+    puts "enter type of piece for promotion:"
+    loop do
+      input = gets.chomp.downcase
+      if !types.include?(input)
+        puts "#{input} is invalid! please enter a valid piece:"
+        next
+      end
+      cell.piece = types[input].new(cell.piece.color, cell.pos)
+      break
+    end
+  end
+
 end

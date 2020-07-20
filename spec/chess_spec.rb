@@ -837,6 +837,38 @@ describe Game do
   describe "#promote" do
     let(:test) { subject.new }
     let(:board) { test.board }
+
+    it "promotes pawn to queen" do
+      board['a', 8].piece = Pawn.new('W', ['a', 8])
+      allow(test).to receive(:gets) { 'queen' }
+      test.promote(board['a', 8])
+      expect(board['a', 8].piece.class).to eql(Queen)
+      expect(board['a', 8].piece.color).to eql('W')
+    end
+
+    it "promotes pawn to bishop" do
+      board['a', 8].piece = Pawn.new('W', ['a', 8])
+      allow(test).to receive(:gets) { 'bishop' }
+      test.promote(board['a', 8])
+      expect(board['a', 8].piece.class).to eql(Bishop)
+      expect(board['a', 8].piece.color).to eql('W')
+    end
+
+    it "promotes pawn to knight (black)" do
+      board['a', 1].piece = Pawn.new('B', ['a', 1])
+      allow(test).to receive(:gets) { 'knight' }
+      test.promote(board['a', 1])
+      expect(board['a', 1].piece.class).to eql(Knight)
+      expect(board['a', 1].piece.color).to eql('B')
+    end
+
+    it "promotes pawn to rook (black)" do
+      board['a', 1].piece = Pawn.new('B', ['a', 1])
+      allow(test).to receive(:gets) { 'rook' }
+      test.promote(board['a', 1])
+      expect(board['a', 1].piece.class).to eql(Rook)
+      expect(board['a', 1].piece.color).to eql('B')
+    end
   end
 end
 
