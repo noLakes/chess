@@ -51,7 +51,7 @@ class Game
   end
 
   #converts input to array of cells
-  def format_input(input)
+  def format_input(input, board = @board)
     result = []
     input = input.split
     input.map! do |pos|
@@ -59,7 +59,7 @@ class Game
       pos[1] = pos[1].to_i
       pos
     end
-    input.each { |pos| result << @board.cells[pos]}
+    input.each { |pos| result << board.cells[pos]}
     result
   end
 
@@ -119,13 +119,13 @@ class Game
   end
 
   #designed to take formatted input
-  def valid_path(cells, testing = false)
+  def valid_path(cells, testing = false, board = @board)
     piece = cells[0].piece
     diff = pos_difference(cells)
     
     inc = piece.increments.include?(diff) ? diff : diff_to_inc(diff)
     result = false
-    read = @board.cells[alpha_add(cells[0].pos, inc)]
+    read = board.cells[alpha_add(cells[0].pos, inc)]
     loop do
       if read == cells[1]
         result = true
@@ -133,7 +133,7 @@ class Game
       elsif read.piece != nil
         break
       end
-      read = @board.cells[alpha_add(read.pos, inc)]
+      read = board.cells[alpha_add(read.pos, inc)]
     end
     if result == false
       puts "no path for #{cells[0].piece.class} #{cells[0].pos} ==> #{cells[1].pos}" if !testing
@@ -169,9 +169,9 @@ class Game
   end
 
   #returns true if cell is under threat
-  def threat(threat_cell, color = @turn.color)
+  def threat(threat_cell, color = @turn.color, board = @board)
     threat = false
-    @board.cells.each_pair do |pos, cell|
+    board.cells.each_pair do |pos, cell|
       if cell.piece != nil && cell.piece.color != color
         range = cell.piece.in_range.include?(threat_cell.pos)
         next unless range
@@ -196,7 +196,7 @@ class Game
   end
 
   #checks all clauses for invalid castling
-  def valid_castling(cells, testing = false)
+  def valid_castling(cells, testing = false, board = @board)
     diff = pos_difference(cells)
     return false if diff[1] != 0
 
@@ -205,22 +205,22 @@ class Game
     return false if king.moved
 
     if king.color == 'W'
-      rook = diff[0] == 2 ? @board['h', 1].piece : @board['a', 1].piece
+      rook = diff[0] == 2 ? board['h', 1].piece : board['a', 1].piece
     elsif king.color == 'B'
-      rook = diff[0] == 2 ? @board['h', 8].piece : @board['a', 8].piece
+      rook = diff[0] == 2 ? board['h', 8].piece : board['a', 8].piece
     end
 
     
     return false if rook.class != Rook
     return false if rook.moved
 
-    path = [cells[0], @board.cells[rook.pos]]
+    path = [cells[0], board.cells[rook.pos]]
     inc = diff_to_inc(diff)
     
     read = path[0]
     i = 1
     loop do
-      read = @board.cells[alpha_add(read.pos, inc)]
+      read = board.cells[alpha_add(read.pos, inc)]
       break if read == path[1]
       return false if !read.piece.nil?
       return false if i < 3 && threat(read, king.color)
@@ -229,16 +229,16 @@ class Game
     true
   end
 
-  def perform_castling(king_cell)
+  def perform_castling(king_cell, board = @board)
     case king_cell.pos
     when ['g', 1]
-      move([@board['h', 1], @board['f', 1]])
+      move([board['h', 1], board['f', 1]])
     when ['c', 1]
-      move([@board['a', 1], @board['d', 1]])
+      move([board['a', 1], board['d', 1]])
     when ['g', 8]
-      move([@board['h', 8], @board['f', 8]])
+      move([board['h', 8], board['f', 8]])
     when ['c', 8]
-      move([@board['a', 8], @board['d', 8]])
+      move([board['a', 8], board['d', 8]])
     end
   end
 
@@ -269,29 +269,29 @@ class Game
   end
 
   #checks if you are trying en_passant
-  def en_passant(cells)
+  def en_passant(cells, board = @board)
     if cells[0].piece.color == 'W'
-      target = @board.cells[alpha_add(cells[1].pos, [0, -1])].piece
+      target = board.cells[alpha_add(cells[1].pos, [0, -1])].piece
       return false unless target.class == Pawn && target.color == 'B' && target.last_move == [0, -2]
     elsif cells[0].piece.color == 'B'
-      target = @board.cells[alpha_add(cells[1].pos, [0, 1])].piece
+      target = board.cells[alpha_add(cells[1].pos, [0, 1])].piece
       return false unless target.class == Pawn && target.color == 'W' && target.last_move == [0, 2]
     end
     true
   end
 
-  def perform_en_passant(cells)
+  def perform_en_passant(cells, board = @board)
     color = cells[0].piece.color
     if color == 'W'
-      @board.cells[alpha_add(cells[1].pos, [0, -1])].piece = nil
+      board.cells[alpha_add(cells[1].pos, [0, -1])].piece = nil
     elsif color == 'B'
-      target = @board.cells[alpha_add(cells[1].pos, [0, 1])].piece = nil
+      target = board.cells[alpha_add(cells[1].pos, [0, 1])].piece = nil
     end
   end
 
-  def get_king(color)
+  def get_king(color, board = @board)
     king = nil
-    @board.cells.each_value do |cell|
+    board.cells.each_value do |cell|
       if !cell.piece.nil? && cell.piece.color == color && cell.piece.class == King
         king = cell.piece
         break
@@ -300,17 +300,17 @@ class Game
     king
   end
 
-  def check(color)
-    threat(@board.cells[get_king(color).pos], color)
+  def check(color, board = @board)
+    threat(board.cells[get_king(color).pos], color)
   end
 
   #returns array of formatted valid moves for given color
-  def valid_moves(color)
+  def valid_moves(color, board = @board)
     moves = []
-    @board.cells.each_value do |cell|
+    board.cells.each_value do |cell|
       if !cell.piece.nil? && cell.piece.color == color
         cell.piece.in_range.each do |pos2|
-          move = [cell, @board.cells[pos2]]
+          move = [cell, board.cells[pos2]]
           moves << move if validate_move(move, true)
         end
       end
