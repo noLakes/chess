@@ -317,4 +317,17 @@ class Game
     end
     moves.length == 0 ? nil : moves
   end
+
+  def check_promotion(cells)
+    pawn = cells[0].piece
+    return false if pawn.class != Pawn
+    if pawn.color == 'W' && cells[1].pos[1] == 8
+      true
+    elsif pawn.color == 'B' && cells[1].pos[1] == 1
+      true
+    else
+      false
+    end
+  end
+
 end

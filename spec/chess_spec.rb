@@ -804,6 +804,40 @@ describe Game do
     end
 
   end
+
+  describe "#check_promotion" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns true for white pawn moving to x8" do
+      board['a', 7].piece = Pawn.new('W', ['a', 7])
+      move = [board['a', 7], board['a', 8]]
+      expect(test.check_promotion(move)).to be_truthy
+    end
+
+    it "returns true for black pawn moving to x1" do
+      board['a', 2].piece = Pawn.new('B', ['a', 2])
+      move = [board['a', 2], board['a', 1]]
+      expect(test.check_promotion(move)).to be_truthy
+    end
+
+    it "returns false for white pawn moving to x7" do
+      board['a', 6].piece = Pawn.new('W', ['a', 6])
+      move = [board['a', 6], board['a', 7]]
+      expect(test.check_promotion(move)).to be_falsey
+    end
+
+    it "returns false for black pawn moving to x2" do
+      board['a', 3].piece = Pawn.new('B', ['a', 3])
+      move = [board['a', 3], board['a', 2]]
+      expect(test.check_promotion(move)).to be_falsey
+    end
+  end
+
+  describe "#promote" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+  end
 end
 
 
