@@ -870,6 +870,44 @@ describe Game do
       expect(board['a', 1].piece.color).to eql('B')
     end
   end
+
+  describe "#sim_check" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns true if sim is in check" do
+      board['e', 1].piece = King.new('W', ['e', 1])
+      board['f', 8].piece = Rook.new('B', ['f', 8])
+      move = [board['e', 1], board['f', 1]]
+      expect(test.sim_check(move)).to be_truthy
+    end
+
+    it "returns false if sim not in check" do
+      board['e', 1].piece = King.new('W', ['e', 1])
+      board['g', 8].piece = Rook.new('B', ['f', 8])
+      move = [board['e', 1], board['f', 1]]
+      expect(test.sim_check(move)).to be_falsey
+    end
+
+  end
+
+  describe "#sim_board" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+    before(:each) { board.setup_board }
+    
+    it "returns a clone of the given board" do
+      sim = sim_board(board)
+      expect(board.object_id).not_to eql(sim.object_id)
+    end
+
+    it "returns a deep clone of the board" do
+      sim = sim_board(board)
+      expect(board['a', 1].object_id).not_to eql(sim['a', 1].object_id)
+    end
+
+  end
+
 end
 
 
