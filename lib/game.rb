@@ -300,6 +300,10 @@ class Game
     king
   end
 
+  def check(color)
+    threat(@board.cells[get_king(color).pos], color)
+  end
+
   #returns array of formatted valid moves for given color
   def valid_moves(color)
     moves = []

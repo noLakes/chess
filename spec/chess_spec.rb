@@ -737,9 +737,41 @@ describe Game do
 
     context "when in check" do
 
+      it "returns true (white, rook threat)" do
+        board['c', 1].piece = King.new('W', ['c', 1])
+        board['c', 8].piece = Rook.new('B', ['c', 8])
+        expect(test.check('W')).to be_truthy
+      end
+
+      it "returns true (black, bishop threat)" do
+        board['a', 8].piece = King.new('B', ['a', 8])
+        board['h', 1].piece = Bishop.new('W', ['h', 1])
+        expect(test.check('B')).to be_truthy
+      end
+
+      it "returns true (white, knight threat)" do
+        board['c', 1].piece = King.new('W', ['c', 1])
+        board['e', 2].piece = Knight.new('B', ['e', 2])
+        expect(test.check('W')).to be_truthy
+      end
+
     end
 
     context "when NOT in check" do
+
+      it "returns false (white, threat blocked)" do
+        board['c', 1].piece = King.new('W', ['c', 1])
+        board['c', 2].piece = Pawn.new('W', ['c', 2])
+        board['c', 8].piece = Rook.new('B', ['c', 8])
+        expect(test.check('W')).to be_falsey
+      end
+
+      it "returns true (black, threat blocked)" do
+        board['a', 8].piece = King.new('B', ['a', 8])
+        board['b', 7].piece = Pawn.new('B', ['b', 7])
+        board['h', 1].piece = Bishop.new('W', ['h', 1])
+        expect(test.check('B')).to be_falsey
+      end
 
     end
 
