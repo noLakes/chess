@@ -47,6 +47,11 @@ class Game
     end
 
     return false unless valid_path(move, testing)
+    
+    if !get_king('W').nil? && !get_king('B').nil?
+      return false if sim_check(move, testing)
+    end
+    
     return true
   end
 
