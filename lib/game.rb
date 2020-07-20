@@ -51,7 +51,7 @@ class Game
   end
 
   #converts input to array of cells
-  def format_input(input, board = @board)
+  def format_input(input)
     result = []
     input = input.split
     input.map! do |pos|
@@ -59,7 +59,7 @@ class Game
       pos[1] = pos[1].to_i
       pos
     end
-    input.each { |pos| result << board.cells[pos]}
+    input.each { |pos| result << @board.cells[pos]}
     result
   end
 
@@ -119,13 +119,13 @@ class Game
   end
 
   #designed to take formatted input
-  def valid_path(cells, testing = false, board = @board)
+  def valid_path(cells, testing = false)
     piece = cells[0].piece
     diff = pos_difference(cells)
     
     inc = piece.increments.include?(diff) ? diff : diff_to_inc(diff)
     result = false
-    read = board.cells[alpha_add(cells[0].pos, inc)]
+    read = @board.cells[alpha_add(cells[0].pos, inc)]
     loop do
       if read == cells[1]
         result = true
@@ -133,7 +133,7 @@ class Game
       elsif read.piece != nil
         break
       end
-      read = board.cells[alpha_add(read.pos, inc)]
+      read = @board.cells[alpha_add(read.pos, inc)]
     end
     if result == false
       puts "no path for #{cells[0].piece.class} #{cells[0].pos} ==> #{cells[1].pos}" if !testing
@@ -169,13 +169,13 @@ class Game
   end
 
   #returns true if cell is under threat
-  def threat(threat_cell, color = @turn.color, board = @board)
+  def threat(threat_cell, color = @turn.color)
     threat = false
-    board.cells.each_pair do |pos, cell|
+    @board.cells.each_pair do |pos, cell|
       if cell.piece != nil && cell.piece.color != color
         range = cell.piece.in_range.include?(threat_cell.pos)
         next unless range
-        path = valid_path([cell, threat_cell], true, board)
+        path = valid_path([cell, threat_cell], true)
         next unless path
         threat = true
         break
@@ -196,7 +196,7 @@ class Game
   end
 
   #checks all clauses for invalid castling
-  def valid_castling(cells, testing = false, board = @board)
+  def valid_castling(cells, testing = false)
     diff = pos_difference(cells)
     return false if diff[1] != 0
 
@@ -205,22 +205,22 @@ class Game
     return false if king.moved
 
     if king.color == 'W'
-      rook = diff[0] == 2 ? board['h', 1].piece : board['a', 1].piece
+      rook = diff[0] == 2 ? @board['h', 1].piece : @board['a', 1].piece
     elsif king.color == 'B'
-      rook = diff[0] == 2 ? board['h', 8].piece : board['a', 8].piece
+      rook = diff[0] == 2 ? @board['h', 8].piece : @board['a', 8].piece
     end
 
     
     return false if rook.class != Rook
     return false if rook.moved
 
-    path = [cells[0], board.cells[rook.pos]]
+    path = [cells[0], @board.cells[rook.pos]]
     inc = diff_to_inc(diff)
     
     read = path[0]
     i = 1
     loop do
-      read = board.cells[alpha_add(read.pos, inc)]
+      read = @board.cells[alpha_add(read.pos, inc)]
       break if read == path[1]
       return false if !read.piece.nil?
       return false if i < 3 && threat(read, king.color)
@@ -229,16 +229,16 @@ class Game
     true
   end
 
-  def perform_castling(king_cell, board = @board)
+  def perform_castling(king_cell)
     case king_cell.pos
     when ['g', 1]
-      move([board['h', 1], board['f', 1]])
+      move([@board['h', 1], @board['f', 1]])
     when ['c', 1]
-      move([board['a', 1], board['d', 1]])
+      move([@board['a', 1], @board['d', 1]])
     when ['g', 8]
-      move([board['h', 8], board['f', 8]])
+      move([@board['h', 8], @board['f', 8]])
     when ['c', 8]
-      move([board['a', 8], board['d', 8]])
+      move([@board['a', 8], @board['d', 8]])
     end
   end
 
@@ -269,29 +269,29 @@ class Game
   end
 
   #checks if you are trying en_passant
-  def en_passant(cells, board = @board)
+  def en_passant(cells)
     if cells[0].piece.color == 'W'
-      target = board.cells[alpha_add(cells[1].pos, [0, -1])].piece
+      target = @board.cells[alpha_add(cells[1].pos, [0, -1])].piece
       return false unless target.class == Pawn && target.color == 'B' && target.last_move == [0, -2]
     elsif cells[0].piece.color == 'B'
-      target = board.cells[alpha_add(cells[1].pos, [0, 1])].piece
+      target = @board.cells[alpha_add(cells[1].pos, [0, 1])].piece
       return false unless target.class == Pawn && target.color == 'W' && target.last_move == [0, 2]
     end
     true
   end
 
-  def perform_en_passant(cells, board = @board)
+  def perform_en_passant(cells)
     color = cells[0].piece.color
     if color == 'W'
-      board.cells[alpha_add(cells[1].pos, [0, -1])].piece = nil
+      @board.cells[alpha_add(cells[1].pos, [0, -1])].piece = nil
     elsif color == 'B'
-      target = board.cells[alpha_add(cells[1].pos, [0, 1])].piece = nil
+      target = @board.cells[alpha_add(cells[1].pos, [0, 1])].piece = nil
     end
   end
 
-  def get_king(color, board = @board)
+  def get_king(color)
     king = nil
-    board.cells.each_value do |cell|
+    @board.cells.each_value do |cell|
       if !cell.piece.nil? && cell.piece.color == color && cell.piece.class == King
         king = cell.piece
         break
@@ -300,17 +300,17 @@ class Game
     king
   end
 
-  def check(color, board = @board)
-    threat(board.cells[get_king(color, board).pos], color, board)
+  def check(color)
+    threat(@board.cells[get_king(color).pos], color)
   end
 
   #returns array of formatted valid moves for given color
-  def valid_moves(color, board = @board)
+  def valid_moves(color)
     moves = []
-    board.cells.each_value do |cell|
+    @board.cells.each_value do |cell|
       if !cell.piece.nil? && cell.piece.color == color
         cell.piece.in_range.each do |pos2|
-          move = [cell, board.cells[pos2]]
+          move = [cell, @board.cells[pos2]]
           moves << move if validate_move(move, true)
         end
       end
@@ -347,18 +347,19 @@ class Game
     end
   end
 
-  def sim_board(board = @board)
-    serial = Marshal.dump(board)
+  def sim_game
+    serial = Marshal.dump(self)
     Marshal.load(serial)
   end
 
   def sim_check(cells)
     color = cells[0].piece.color
-    sim = sim_board(@board)
+    sim = sim_game
+    board = sim.board
     #binding.pry
-    move([sim.cells[cells[0].pos], sim.cells[cells[1].pos]])
+    sim.move([board.cells[cells[0].pos], board.cells[cells[1].pos]])
     #binding.pry
-    check(color, sim)
+    sim.check(color)
   end
 
 end
