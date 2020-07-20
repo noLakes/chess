@@ -897,12 +897,12 @@ describe Game do
     before(:each) { board.setup_board }
     
     it "returns a clone of the given board" do
-      sim = sim_board(board)
+      sim = test.sim_board(board)
       expect(board.object_id).not_to eql(sim.object_id)
     end
 
     it "returns a deep clone of the board" do
-      sim = sim_board(board)
+      sim = test.sim_board(board)
       expect(board['a', 1].object_id).not_to eql(sim['a', 1].object_id)
     end
 

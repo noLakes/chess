@@ -175,7 +175,7 @@ class Game
       if cell.piece != nil && cell.piece.color != color
         range = cell.piece.in_range.include?(threat_cell.pos)
         next unless range
-        path = valid_path([cell, threat_cell], true)
+        path = valid_path([cell, threat_cell], true, board)
         next unless path
         threat = true
         break
@@ -301,7 +301,7 @@ class Game
   end
 
   def check(color, board = @board)
-    threat(board.cells[get_king(color).pos], color)
+    threat(board.cells[get_king(color, board).pos], color, board)
   end
 
   #returns array of formatted valid moves for given color
@@ -347,6 +347,18 @@ class Game
     end
   end
 
-  
+  def sim_board(board = @board)
+    serial = Marshal.dump(board)
+    Marshal.load(serial)
+  end
+
+  def sim_check(cells)
+    color = cells[0].piece.color
+    sim = sim_board(@board)
+    #binding.pry
+    move([sim.cells[cells[0].pos], sim.cells[cells[1].pos]])
+    #binding.pry
+    check(color, sim)
+  end
 
 end
