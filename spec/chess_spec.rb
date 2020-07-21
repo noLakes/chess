@@ -1005,7 +1005,7 @@ describe Game do
     it "returns move that takes rook" do
       board['b', 4].piece = Rook.new('B', ['b', 4])
       board['f', 6].piece = Pawn.new('B', ['f', 6])
-      board['d', 5].piece = Knight.new('W', ['d', 4])
+      board['d', 5].piece = Knight.new('W', ['d', 5])
       move = test.best_move('W')
       expect(move[1].piece).to be_kind_of(Rook)
       expect(move[1].piece.color).to eql('B')
@@ -1023,7 +1023,7 @@ describe Game do
 
     it "returns move that takes pawn (when best available)" do
       board['f', 6].piece = Pawn.new('B', ['f', 6])
-      board['d', 5].piece = Knight.new('W', ['d', 4])
+      board['d', 5].piece = Knight.new('W', ['d', 5])
       move = test.best_move('W')
       expect(move[1].piece).to be_kind_of(Pawn)
       expect(move[1].piece.color).to eql('B')

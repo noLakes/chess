@@ -371,4 +371,32 @@ class Game
     valid_moves(color).nil?
   end
 
+  def best_move(color)
+    moves = valid_moves(color)
+    tier = [King, Queen, Knight, Bishop, Rook, Pawn]
+    nils = []
+
+    tier_moves = tier.map do |type|
+      result = []
+      moves.each do |cells|
+        if !cells[1].piece.nil? && cells[1].piece.class == type
+          result << cells
+        else
+          nils << cells unless nils.include?(cells)
+        end
+      end
+      result
+    end
+    tier_moves << nils
+
+    tier_moves.each do |moves|
+      next if moves.length < 2
+      
+      moves.sort! do |a, b|
+        tier.index(b[0].piece.class) <=> tier.index(a[0].piece.class) 
+      end
+    end
+    tier_moves.flatten(1)[0]
+  end
+
 end
