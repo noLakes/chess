@@ -974,6 +974,69 @@ describe Game do
       expect(test.check_mate('W')).to be_falsey
     end
   end
+
+  describe "#best_move" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+    
+    before(:each) do 
+      board['e', 1].piece = King.new('W', ['e', 1])
+      board['e', 8].piece = King.new('B', ['e', 8])
+    end
+
+    it "returns move that takes king" do
+      board['a', 4].piece = Bishop.new('W', ['a', 4])
+      board['h', 4].piece = Knight.new('W', ['h', 4])
+      move = test.best_move('W')
+      expect(move[1].piece).to be_kind_of(King)
+      expect(move[1].piece.color).to eql('B')
+    end
+
+    it "returns move that takes queen" do
+      test.turn = test.player[2]
+      board['a', 6].piece = Queen.new('W', ['a', 6])
+      board['h', 4].piece = Pawn.new('W', ['h', 4])
+      board['h', 6].piece = Rook.new('B', ['h', 6])
+      move = test.best_move('B')
+      expect(move[1].piece).to be_kind_of(Queen)
+      expect(move[1].piece.color).to eql('W')
+    end
+
+    it "returns move that takes rook" do
+      board['b', 4].piece = Rook.new('B', ['b', 4])
+      board['f', 6].piece = Pawn.new('B', ['f', 6])
+      board['d', 5].piece = Knight.new('W', ['d', 4])
+      move = test.best_move('W')
+      expect(move[1].piece).to be_kind_of(Rook)
+      expect(move[1].piece.color).to eql('B')
+    end
+
+    it "returns move that takes bishop" do
+      test.turn = test.player[2]
+      board['b', 6].piece = Bishop.new('W', ['b', 6])
+      board['g', 5].piece = Pawn.new('W', ['g', 5])
+      board['e', 3].piece = Bishop.new('B', ['e', 3])
+      move = test.best_move('B')
+      expect(move[1].piece).to be_kind_of(Bishop)
+      expect(move[1].piece.color).to eql('W')
+    end
+
+    it "returns move that takes pawn (when best available)" do
+      board['f', 6].piece = Pawn.new('B', ['f', 6])
+      board['d', 5].piece = Knight.new('W', ['d', 4])
+      move = test.best_move('W')
+      expect(move[1].piece).to be_kind_of(Pawn)
+      expect(move[1].piece.color).to eql('B')
+    end
+
+    it "does a random move (not king) when no piece in range and no check" do
+      board['f', 2].piece = Pawn.new('W', ['f', 2])
+      move = test.best_move('W')
+      expect(move[0].piece).to be_kind_of(Pawn)
+    end
+
+  end
+
 end
 
 
