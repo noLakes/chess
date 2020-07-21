@@ -387,7 +387,7 @@ class Game
       end
       result
     end
-    tier_moves << nils
+    tier_moves << nils.shuffle
 
     tier_moves.each do |moves|
       next if moves.length < 2
