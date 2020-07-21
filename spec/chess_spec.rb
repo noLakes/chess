@@ -914,6 +914,7 @@ describe Game do
     let(:board) { test.board }
 
     it "returns true for rook/queen scenario" do
+      test.turn = test.player[2]
       board['f', 8].piece = King.new('B', ['f', 8])
       board['d', 1].piece = King.new('W', ['d', 1])
       board['b', 8].piece = Rook.new('W', ['b', 8])
@@ -922,7 +923,9 @@ describe Game do
     end
 
     it "returns true for queen/knight scenario" do
+      test.turn = test.player[2]
       board['e', 8].piece = King.new('B', ['e', 8])
+      board['a', 1].piece = King.new('W', ['a', 1])
       board['e', 7].piece = Queen.new('W', ['e', 7])
       board['d', 5].piece = Knight.new('W', ['d', 5])
       expect(test.check_mate('B')).to be_truthy
@@ -930,27 +933,33 @@ describe Game do
 
     it "returns true for queen/bishop scenario" do
       board['g', 1].piece = King.new('W', ['g', 1])
+      board['a', 8].piece = King.new('B', ['a', 8])
       board['g', 2].piece = Queen.new('B', ['g', 2])
       board['d', 5].piece = Bishop.new('B', ['d', 5])
       expect(test.check_mate('W')).to be_truthy
     end
 
     it "returns true for queen/pawn scenario" do
+      test.turn = test.player[2]
       board['e', 8].piece = King.new('B', ['e', 8])
+      board['e', 1].piece = King.new('W', ['e', 1])
       board['e', 7].piece = Queen.new('W', ['e', 7])
       board['f', 6].piece = Pawn.new('W', ['f', 6])
       expect(test.check_mate('B')).to be_truthy
     end
 
     it "returns false for king escape move" do
+      test.turn = test.player[2]
       board['e', 8].piece = King.new('B', ['e', 8])
+      board['e', 1].piece = King.new('W', ['e', 1])
       board['e', 7].piece = Rook.new('W', ['e', 7])
-      board['e', 7].piece = Rook.new('W', ['f', 7])
+      board['f', 7].piece = Rook.new('W', ['f', 7])
       expect(test.check_mate('B')).to be_falsey
     end
 
     it "returns false when friendly piece can save" do
-      board['b', 1].piece = King.new('W' ['b', 1])
+      board['b', 1].piece = King.new('W' ,['b', 1])
+      board['b', 8].piece = King.new('B' ,['b', 8])
       board['c', 1].piece = Rook.new('B', ['c', 1])
       board['h', 6].piece = Bishop.new('W', ['h', 6])
       expect(test.check_mate('W')).to be_falsey
@@ -958,6 +967,7 @@ describe Game do
 
     it "returns false when castling can save" do
       board['e', 1].piece = King.new('W', ['e', 1])
+      board['g', 8].piece = King.new('B', ['g', 8])
       board['a', 1].piece = Rook.new('W', ['a', 1])
       board['e', 8].piece = Rook.new('B', ['e', 8])
       board['h', 1].piece = Queen.new('B', ['h', 1])

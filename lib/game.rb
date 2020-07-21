@@ -48,7 +48,7 @@ class Game
 
     return false unless valid_path(move, testing)
     
-    if !get_king('W').nil? && !get_king('B').nil?
+    if !get_king(move[0].piece.color).nil?
       return false if sim_check(move, testing)
     end
 
@@ -365,6 +365,10 @@ class Game
     result = sim.check(color)
     puts "#{cells[0].pos} => #{cells[1].pos} would put you in check!" if !testing
     result
+  end
+
+  def check_mate(color)
+    valid_moves(color).nil?
   end
 
 end
