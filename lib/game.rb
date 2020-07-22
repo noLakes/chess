@@ -2,10 +2,8 @@ require_relative 'cell'
 require_relative 'board'
 require_relative 'chess_methods'
 require_relative 'player'
-require 'pry'
-
-
 Dir["/pieces/*"].each {|file| require file }
+
 
 class Game
   include Chess_methods
@@ -397,6 +395,10 @@ class Game
       end
     end
     tier_moves.flatten(1)[0]
+  end
+
+  def enemy_color
+    @turn.color == 'W' ? 'B' : 'W'
   end
 
 end

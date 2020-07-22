@@ -74,6 +74,12 @@ describe Game do
     end
   end
 
+  describe "#setup_players" do
+
+    it "asks how many "
+  end
+
+
   #doesnt work with marshal (singleton cannot be dumped)
   xdescribe "#get_move" do
     
