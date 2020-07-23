@@ -12,4 +12,8 @@ class Player
   def add_win
     @score += 1
   end
+
+  def txt
+    @color == 'W' ? 'white' : 'black'
+  end
 end

@@ -7,30 +7,44 @@ Dir["/pieces/*"].each {|file| require file }
 
 class Game
   include Chess_methods
-  attr_reader :board, :player
+  attr_reader :board, :player, :round
   attr_accessor :turn
 
   def initialize(w_human = true, b_human = false)
     @board = Board.new
     @player = { 1 => Player.new('W', w_human), 2 => Player.new('B', b_human)}
     @turn = @player[1]
+    @round = 0
   end
 
-  def self.setup(input = 1)
-    puts "========= CHESS =========\n"
+  def self.setup(input = nil)
+    puts "\n========= CHESS ========="
     loop do
-      puts "please enter # of human players [ 0-2 ]"
+      puts "\nplease enter # of human players [ 0-2 ]"
       input = gets.chomp.to_i
       break if input.between?(0, 2)
     end
-    
     if input == 0
-      Game.new(false, false)
+       Game.new(false, false)
     elsif input == 1
       Game.new(true, false)
     elsif input == 2
       Game.new(true, true)
     end
+  end
+
+  def play
+    @board.setup_board if @round.zero?
+    puts "\n#{@board.txt}"
+    @turn.human ? self.human_turn : self.ai_turn
+  end
+
+  def human_turn
+    puts "\n"
+  end
+
+  def ai_turn
+    
   end
 
   def get_move
