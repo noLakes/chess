@@ -74,9 +74,18 @@ describe Game do
     end
   end
 
-  describe "#setup_players" do
+  xdescribe "#self.setup" do
 
-    it "asks how many "
+
+    it "assigns amount of human players based on user input" do
+      test = nil
+      allow(test).to receive(:gets) { '1' }
+      test = Game.setup
+    end
+
+    it "constructs a new game object" do
+
+    end
   end
 
 

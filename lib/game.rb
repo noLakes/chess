@@ -10,10 +10,27 @@ class Game
   attr_reader :board, :player
   attr_accessor :turn
 
-  def initialize
+  def initialize(w_human = true, b_human = false)
     @board = Board.new
-    @player = { 1 => Player.new, 2 => Player.new('B', false)}
+    @player = { 1 => Player.new('W', w_human), 2 => Player.new('B', b_human)}
     @turn = @player[1]
+  end
+
+  def self.setup(input = 1)
+    puts "========= CHESS =========\n"
+    loop do
+      puts "please enter # of human players [ 0-2 ]"
+      input = gets.chomp.to_i
+      break if input.between?(0, 2)
+    end
+    
+    if input == 0
+      Game.new(false, false)
+    elsif input == 1
+      Game.new(true, false)
+    elsif input == 2
+      Game.new(true, true)
+    end
   end
 
   def get_move
