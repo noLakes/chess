@@ -37,10 +37,10 @@ class Game
     @board.setup_board if @round.zero?
     @round += 1
     puts "\n#{@board.txt}"
-    self.turn
+    self.next_turn
   end
 
-  def turn
+  def next_turn
     puts "\nturn #{@round}: #{@turn.txt}"
     puts "YOU ARE IN CHECK" if check(@turn.color)
     move = @turn.human ? get_move : ai_move
@@ -88,6 +88,9 @@ class Game
     if moving_pawn(move)
       if try_double_step(move)
         return false unless valid_double_step(move)
+      end
+      if pawn_forward(move)
+        return false unless valid_pawn_forward(move)
       end
       if try_diagonal(move)
         return false unless diagonal_capture(move) || en_passant(move)
@@ -312,6 +315,15 @@ class Game
   #checks if your double step attempt is valid
   def valid_double_step(cells)
     cells[0].piece.moved == false
+  end
+
+  def pawn_forward(cells)
+    diff = pos_difference(cells)
+    [[0, 1], [0, -1]].include?(diff)
+  end
+
+  def valid_pawn_forward(cells)
+    cells[1].piece.nil?
   end
 
   #checks if you are trying to move a pawn diagonally
