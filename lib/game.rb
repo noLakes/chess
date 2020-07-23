@@ -36,7 +36,7 @@ class Game
   def play
     @board.setup_board if @round.zero?
     puts "\n#{@board.txt}"
-    check_win
+    check_win(@turn.color)
     @round += 1
     self.next_turn
   end
@@ -51,18 +51,16 @@ class Game
     play
   end
 
-  def check_win
-    if get_king('W').nil? || check_mate('W')
-      win(@player[2])
-    elsif get_king('B').nil? || check_mate('B')
-      win(@player[1])
+  def check_win(color)
+    if get_king(color).nil? || check_mate(color)
+      color == 'W' ? win(@player[2]) : win(@player[1])
     end
   end
 
   def win(player)
     player.add_win
     puts "\n#{player.txt} won in #{@round} turns"
-    puts "\n the scores are: W/#{@player[1].score} B/#{@player[2].score}"
+    puts "\nthe scores are: W/#{@player[1].score} B/#{@player[2].score}"
     play_again
   end
 
@@ -246,8 +244,6 @@ class Game
       perform_en_passant(cells)
     end
 
-    promote_status = check_promotion(cells)
-
     if try_castling(cells) && valid_castling(cells)
       perform_castling(cells[1])
     end
@@ -257,7 +253,9 @@ class Game
     cells[0].piece = nil
 
     update_moved(cells[1].piece, cells)
-    promote(cells[1]) if promote_status
+    if check_promotion(cells[1])
+      promote(cells[1])
+    end
   end
 
   def update_moved(piece, cells)
@@ -428,12 +426,12 @@ class Game
     moves.length == 0 ? nil : moves
   end
 
-  def check_promotion(cells)
-    pawn = cells[0].piece
+  def check_promotion(cell)
+    pawn = cell.piece
     return false if pawn.class != Pawn
-    if pawn.color == 'W' && cells[1].pos[1] == 8
+    if pawn.color == 'W' && cell.pos[1] == 8
       true
-    elsif pawn.color == 'B' && cells[1].pos[1] == 1
+    elsif pawn.color == 'B' && cell.pos[1] == 1
       true
     else
       false
@@ -474,7 +472,9 @@ class Game
     board = sim.board
     sim.move([board.cells[cells[0].pos], board.cells[cells[1].pos]])
     result = sim.check(color)
-    puts "#{cells[0].pos} => #{cells[1].pos} would put you in check!" if !testing
+    if result
+      puts "#{cells[0].pos} => #{cells[1].pos} would put you in check!" if !testing
+    end
     result
   end
 

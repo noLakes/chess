@@ -825,28 +825,24 @@ describe Game do
     let(:test) { subject.new }
     let(:board) { test.board }
 
-    it "returns true for white pawn moving to x8" do
-      board['a', 7].piece = Pawn.new('W', ['a', 7])
-      move = [board['a', 7], board['a', 8]]
-      expect(test.check_promotion(move)).to be_truthy
+    it "returns true for white pawn at x8" do
+      board['a', 8].piece = Pawn.new('W', ['a', 8])
+      expect(test.check_promotion(board['a', 8])).to be_truthy
     end
 
     it "returns true for black pawn moving to x1" do
-      board['a', 2].piece = Pawn.new('B', ['a', 2])
-      move = [board['a', 2], board['a', 1]]
-      expect(test.check_promotion(move)).to be_truthy
+      board['a', 1].piece = Pawn.new('B', ['a', 1])
+      expect(test.check_promotion(board['a', 1])).to be_truthy
     end
 
     it "returns false for white pawn moving to x7" do
-      board['a', 6].piece = Pawn.new('W', ['a', 6])
-      move = [board['a', 6], board['a', 7]]
-      expect(test.check_promotion(move)).to be_falsey
+      board['a', 7].piece = Pawn.new('W', ['a', 7])
+      expect(test.check_promotion(board['a', 7])).to be_falsey
     end
 
     it "returns false for black pawn moving to x2" do
-      board['a', 3].piece = Pawn.new('B', ['a', 3])
-      move = [board['a', 3], board['a', 2]]
-      expect(test.check_promotion(move)).to be_falsey
+      board['a', 2].piece = Pawn.new('B', ['a', 2])
+      expect(test.check_promotion(board['a', 2])).to be_falsey
     end
   end
 
