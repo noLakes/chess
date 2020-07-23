@@ -451,7 +451,6 @@ class Game
       end
       result
     end
-    tier_moves << nils.shuffle
 
     tier_moves.each do |moves|
       next if moves.length < 2
@@ -460,6 +459,7 @@ class Game
         tier.index(b[0].piece.class) <=> tier.index(a[0].piece.class) 
       end
     end
+    tier_moves << nils.shuffle
     tier_moves.flatten(1)[0]
   end
 
