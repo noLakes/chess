@@ -212,6 +212,8 @@ class Game
       perform_en_passant(cells)
     end
 
+    promote_status = check_promotion(cells)
+
     if try_castling(cells) && valid_castling(cells)
       perform_castling(cells[1])
     end
@@ -221,6 +223,7 @@ class Game
     cells[0].piece = nil
 
     update_moved(cells[1].piece, cells)
+    promote(cells[1]) if promote_status
   end
 
   def update_moved(piece, cells)
