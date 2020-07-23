@@ -35,16 +35,39 @@ class Game
 
   def play
     @board.setup_board if @round.zero?
+    @round += 1
     puts "\n#{@board.txt}"
-    @turn.human ? self.human_turn : self.ai_turn
+    self.turn
   end
 
-  def human_turn
-    puts "\n"
+  def turn
+    puts "\nturn #{@round}: #{@turn.txt}"
+    puts "YOU ARE IN CHECK" if check(@turn.color)
+    move = @turn.human ? get_move : ai_move
+    puts tell_move(move)
+    self.move(move) 
+    switch_players
+    play
   end
 
-  def ai_turn
-    
+  def tell_move(move)
+    p1 = move[0].piece
+    takes = move[1].piece.nil? ? nil : move[1].piece.class
+    "#{@turn.txt} moves #{p1.class} #{pos_to_txt(p1.pos)} => #{takes} #{pos_to_txt(move[1].pos)}"
+  end
+
+  def ai_move
+    puts "computer is thinking..."
+    sleep 2
+    best_move(@turn.color)
+  end
+
+  def pos_to_txt(pos)
+    "#{pos[0]}#{pos[1]}"
+  end
+
+  def switch_players
+    @turn = @turn.color == 'W' ? @player[2] : @player[1]
   end
 
   def get_move
