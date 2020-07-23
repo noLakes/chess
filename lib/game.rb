@@ -58,7 +58,11 @@ class Game
 
   def ai_move
     puts "computer is thinking..."
-    sleep 2
+    if @player.values.any? {|x| x.human}
+      sleep 2
+    else
+      sleep 0.05
+    end
     best_move(@turn.color)
   end
 
