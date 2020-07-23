@@ -405,6 +405,12 @@ class Game
 
   def promote(cell)
     return nil if cell.piece.class != Pawn
+    
+    if !@turn.human
+      cell.piece = Queen.new(@turn.color, cell.pos) 
+      return
+    end
+    
     types = { 'queen' => Queen, 'king' => King, 'knight' => Knight,
       'rook' => Rook, 'bishop' => Bishop }
     input = nil
