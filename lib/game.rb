@@ -35,8 +35,9 @@ class Game
 
   def play
     @board.setup_board if @round.zero?
-    @round += 1
     puts "\n#{@board.txt}"
+    check_win
+    @round += 1
     self.next_turn
   end
 
@@ -47,6 +48,39 @@ class Game
     puts tell_move(move)
     self.move(move) 
     switch_players
+    play
+  end
+
+  def check_win
+    if get_king('W').nil? || check_mate('W')
+      win(@player[2])
+    elsif get_king('B').nil? || check_mate('B')
+      win(@player[1])
+    end
+  end
+
+  def win(player)
+    player.add_win
+    puts "\n#{player.txt} won in #{@round} turns"
+    puts "\n the scores are: W/#{@player[1].score} B/#{@player[2].score}"
+    play_again
+  end
+
+  def play_again
+    puts "\nplay again? [y/n]"
+    answer = nil
+    loop do
+      answer = gets.chomp.downcase
+      break if ['y', 'n'].include?(answer)
+      puts "please answer with 'y' or 'n'"
+    end
+    answer == 'y' ? reset_game : exit
+  end
+
+  def reset_game
+    @round = 0
+    @board = Board.new
+    @turn = @player[1]
     play
   end
 
@@ -61,7 +95,7 @@ class Game
     if @player.values.any? {|x| x.human}
       sleep 2
     else
-      sleep 0.05
+      sleep 0.25
     end
     best_move(@turn.color)
   end
