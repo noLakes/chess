@@ -3,6 +3,7 @@ require_relative 'board'
 require_relative 'chess_methods'
 require_relative 'player'
 Dir["/pieces/*"].each {|file| require file }
+require 'yaml'
 
 
 class Game
@@ -46,7 +47,10 @@ class Game
     puts "YOU ARE IN CHECK" if check(@turn.color)
     move = @turn.human ? get_move : ai_move
     puts tell_move(move)
-    self.move(move) 
+    self.move(move)
+    if check_promotion(move[1])
+      promote(move[1])
+    end
     switch_players
     play
   end
@@ -118,7 +122,7 @@ class Game
   def get_move
     move = nil
     loop do
-      puts "enter your move (eg: a4 a7)"
+      puts "enter your move (eg: a4 a7 / or 'save' to save and exit)"
       move = format_input(gets.chomp.to_s)
       break if validate_move(move)
     end
@@ -157,6 +161,7 @@ class Game
 
   #converts input to array of cells
   def format_input(input)
+    saving(input)
     result = []
     input = input.split
     input.map! do |pos|
@@ -262,9 +267,6 @@ class Game
     cells[0].piece = nil
 
     update_moved(cells[1].piece, cells)
-    if check_promotion(cells[1])
-      promote(cells[1])
-    end
   end
 
   def update_moved(piece, cells)
@@ -439,9 +441,9 @@ class Game
     pawn = cell.piece
     return false if pawn.class != Pawn
     if pawn.color == 'W' && cell.pos[1] == 8
-      true
+      return true
     elsif pawn.color == 'B' && cell.pos[1] == 1
-      true
+      return true
     else
       false
     end
@@ -461,13 +463,10 @@ class Game
     puts "enter type of piece for promotion:"
     loop do
       input = gets.chomp.downcase
-      if !types.include?(input)
-        puts "#{input} is invalid! please enter a valid piece:"
-        next
-      end
-      cell.piece = types[input].new(cell.piece.color, cell.pos)
-      break
+      break if types.include?(input)
+      puts "#{input} is invalid! please enter a valid piece:"
     end
+    cell.piece = types[input].new(cell.piece.color, cell.pos)
   end
 
   def sim_game
@@ -527,6 +526,14 @@ class Game
     !check(@turn.color) && valid_moves(@turn.color).nil?
   end
 
+  def saving(input)
+    if input.downcase == 'save'
+      puts "\nplease enter save name:"
+      save(gets.chomp)
+      exit
+    end
+  end
+
   def save(save_name)
     data = YAML.dump ({
       :board => @board,
@@ -546,6 +553,7 @@ class Game
     @turn = data[:turn]
     @round = data[:round]
     puts "loaded save '#{save_name}'"
+    puts "\n#{@board.txt}"
     self.next_turn
   end
 
