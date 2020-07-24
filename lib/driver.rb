@@ -6,3 +6,4 @@ Dir["./pieces/*"].each {|file| require file }
 
 game = Game.setup
 game.play
+

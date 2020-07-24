@@ -52,9 +52,18 @@ class Game
   end
 
   def check_win(color)
+    if stalemate
+      draw
+    end
     if get_king(color).nil? || check_mate(color)
       color == 'W' ? win(@player[2]) : win(@player[1])
     end
+  end
+
+  def draw
+    puts "\n the game has ended in a stalemate at turn #{@rounds}"
+    puts "\nthe scores are: W/#{@player[1].score} B/#{@player[2].score}"
+    play_again
   end
 
   def win(player)
@@ -516,6 +525,28 @@ class Game
 
   def stalemate
     !check(@turn.color) && valid_moves(@turn.color).nil?
+  end
+
+  def save(save_name)
+    data = YAML.dump ({
+      :board => @board,
+      :player => @player,
+      :turn => @turn,
+      :round => @round,
+    })
+    save =  File.open(save_name, 'w')
+    save.puts(data)
+    puts "\ngame saved as #{save_name}.yaml"
+  end
+  
+  def load(save_name)
+    data = YAML.load(File.read(save_name))
+    @board = data[:board]
+    @player = data[:player]
+    @turn = data[:turn]
+    @round = data[:round]
+    puts "loaded save '#{save_name}'"
+    self.next_turn
   end
 
 end
