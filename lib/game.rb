@@ -514,4 +514,8 @@ class Game
     @turn.color == 'W' ? 'B' : 'W'
   end
 
+  def stalemate
+    !check(@turn.color) && valid_moves(@turn.color).nil?
+  end
+
 end

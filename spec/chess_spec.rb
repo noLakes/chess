@@ -1048,6 +1048,33 @@ describe Game do
 
   end
 
+  describe "#stalemate" do
+    let(:test) { subject.new }
+    let(:board) { test.board }
+
+    it "returns true when player is not in check but has no legal moves" do
+      board['h', 8].piece = King.new('B', ['h', 8])
+      board['f', 7].piece = King.new('W', ['f', 7])
+      board['g', 6].piece = Queen.new('W', ['g', 6])
+      test.turn = test.player[2]
+      expect(test.stalemate).to be_truthy
+    end
+
+    it "returns false when player is in check and has no legal moves" do
+      board['h', 8].piece = King.new('B', ['h', 8])
+      board['f', 7].piece = King.new('W', ['f', 7])
+      board['a', 8].piece = Rook.new('W', ['a', 8])
+      board['g', 6].piece = Queen.new('W', ['g', 6])
+      test.turn = test.player[2]
+      expect(test.stalemate).to be_falsey
+    end
+
+    it "returns false when player has legal moves" do
+      board.setup_board
+      expect(test.stalemate).to be_falsey
+    end
+
+  end
 end
 
 
